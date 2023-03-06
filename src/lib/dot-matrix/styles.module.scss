@@ -1,0 +1,23 @@
+.container {
+  margin: 10px;
+  width: fit-content;
+  .title {
+    font-size: 25px;
+    font-weight: 500;
+    margin-bottom: 10px;
+    width: 100%;
+    justify-content: center;
+    display: flex;
+  }
+  .dotsContainer {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    width: 490px;
+    .eachDot {
+      border-radius: 50%;
+      width: 35px;
+      height: 35px;
+    }
+  }
+}

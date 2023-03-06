@@ -1,7 +1,3 @@
-import React from 'react';
-import "./index.css";
+import DotMatrix from "./dot-matrix";
 
-const MyLibrary = () => (
-  <div>Your component goes here</div>
-)
-export default MyLibrary;
+export default DotMatrix;
