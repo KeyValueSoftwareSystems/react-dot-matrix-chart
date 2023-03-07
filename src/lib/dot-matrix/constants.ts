@@ -26,3 +26,7 @@ export enum Elements {
   Container = "Container",
   Dot = "Dot"
 }
+
+export const DEFAULT_ROWS = 5;
+
+export const DEFAULT_COLUMNS = 12;

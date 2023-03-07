@@ -3,20 +3,20 @@ import { v4 } from 'uuid';
 import classes from './styles.module.scss';
 import { DotMatrixPropType, DataPointType } from "./types";
 import { useDotMatrix } from './custom-hooks/useDotMatrix';
-import { Elements } from "./constants";
+import { Elements, DEFAULT_COLUMNS, DEFAULT_ROWS } from "./constants";
 
 const DotMatrix = (props: DotMatrixPropType): JSX.Element => {
   const {
     title,
     dataPoints,
     dimensions = {
-      rows: 5,
-      columns: 12
+      rows: DEFAULT_ROWS,
+      columns: DEFAULT_COLUMNS
     },
     styles = {}
   } = props;
 
-  const [data, total, partialVal] = useDotMatrix(dataPoints, dimensions);
+  const [data, total, overlappingValues] = useDotMatrix(dataPoints, dimensions);
   const getStyles = (element: Elements): object => {
     const getElementStyle = styles[element];
     if (getElementStyle) {
@@ -26,11 +26,9 @@ const DotMatrix = (props: DotMatrixPropType): JSX.Element => {
   };
 
   const getNumberOfDots = (point: DataPointType): number =>  {
-    const { rows = 5, columns = 12 } = dimensions;
+    const { rows = DEFAULT_ROWS, columns = DEFAULT_COLUMNS } = dimensions;
     const percentage = point.count / total;
-    const dots = percentage * rows * columns;
-    const returnVal = Math.floor(dots);
-    return returnVal;
+    return Math.floor(percentage * rows * columns);
   }
   const getWidth = (): number => dimensions.columns * 41;
 
@@ -40,6 +38,7 @@ const DotMatrix = (props: DotMatrixPropType): JSX.Element => {
         <div
           className={classes.title}
           style={getStyles(Elements.Title)}
+          id="dot-matrix-title"
         >
           {title}
         </div>
@@ -54,7 +53,8 @@ const DotMatrix = (props: DotMatrixPropType): JSX.Element => {
         {data?.map((eachPoint: DataPointType, index: number) => (
           <React.Fragment key={v4()}>
             {eachPoint && Array.apply(null, Array(getNumberOfDots(eachPoint))).map((item: null, columnIndex: number) => (
-              (columnIndex === 0 && index > 0 && partialVal[index - 1] < 1 && partialVal[index - 1] !== 0 && (
+              <div id="dot-matrix-dots" key={v4()}>
+                {(columnIndex === 0 && index > 0 && overlappingValues[index - 1] < 1 && overlappingValues[index - 1] !== 0 && (
                 <div
                   className={classes.eachDot}
                   style={{
@@ -70,8 +70,10 @@ const DotMatrix = (props: DotMatrixPropType): JSX.Element => {
                     ...(getStyles(Elements.Dot))
                   }}
                   key={v4()}
+                  id={`each-category-${index}-${columnIndex}`}
                 />
-              )
+              )}
+              </div>
             ))}
           </React.Fragment>
         ))}

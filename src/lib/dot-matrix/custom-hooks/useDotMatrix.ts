@@ -1,6 +1,6 @@
 import { useMemo} from "react";
 import { DataPointType } from '../types';
-import { COLOR_PALATTE } from '../constants';
+import { COLOR_PALATTE, DEFAULT_COLUMNS , DEFAULT_ROWS } from '../constants';
 
 export const useDotMatrix = (dataPoints: DataPointType[], dimensions: { rows?: number, columns?: number }): [DataPointType[], number, number[]] => {
 
@@ -17,26 +17,24 @@ export const useDotMatrix = (dataPoints: DataPointType[], dimensions: { rows?: n
       let colorIndex = 0;
       dataPoints.forEach((point: DataPointType, index: number) => {
         totalVal += point.count;
-        if (point.color) {
-          values.push({ ...point});
-        } else {
-          let randomColor = ''
+        let { color } = point;
+        if (!color) {
           do {
-            randomColor = COLOR_PALATTE[colorIndex];
+            color = COLOR_PALATTE[colorIndex];
             colorIndex++;
-          } while (isColorPresent(randomColor, values))
-          values.push({ ...point, color: randomColor})
+          } while (isColorPresent(color, values))
         }
+        values.push({ ...point, color });
       })
     }
     return [values, totalVal]
   }, [dataPoints]);
 
-  const partialVal: number[] = useMemo(() => {
+  const overlappingValues: number[] = useMemo(() => {
     const partial: Array<number> = [];
     if (total) {
       data?.forEach((each: DataPointType) => {
-        const { rows = 5, columns = 12 } = dimensions;
+        const { rows = DEFAULT_ROWS, columns = DEFAULT_COLUMNS } = dimensions;
         const percentage = each.count / total;
         const partialDots = percentage * rows * columns;
         const value = partialDots - Math.floor(partialDots);
@@ -45,5 +43,5 @@ export const useDotMatrix = (dataPoints: DataPointType[], dimensions: { rows?: n
     }
     return partial;
   }, [total]);
-  return [data, total, partialVal];
+  return [data, total, overlappingValues];
 }
