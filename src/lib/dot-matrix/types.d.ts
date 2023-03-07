@@ -1,8 +1,7 @@
 export interface DataPointType {
   name: string,
   count: number,
-  color?: string,
-  partialVal? : number
+  color?: string
 }
 
 export interface DotMatrixPropType {

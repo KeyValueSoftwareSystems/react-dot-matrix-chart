@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useMemo } from "react";
 import { v4 } from 'uuid';
 import classes from './styles.module.scss';
 import { DotMatrixPropType, DataPointType } from "./types";
@@ -18,7 +18,19 @@ const DotMatrix = (props: DotMatrixPropType): JSX.Element => {
 
   const [data, total] = useDotMatrix(dataPoints);
 
-  const [partialVal, setPartialVal] = useState<number[]>([]);
+  const partialVal: number[] = useMemo(() => {
+    const partial: Array<number> = [];
+    if (total) {
+      data?.forEach((each: DataPointType, i: number) => {
+        const { rows = 5, columns = 12 } = dimensions;
+        const percentage = each.count / total;
+        const partialDots = percentage * rows * columns;
+        const value = partialDots - Math.floor(partialDots);
+        partial.push(value);
+      })
+    }
+    return partial;
+  }, [total]);
   const getStyles = (element: Elements): object => {
     const getElementStyle = styles[element];
     if (getElementStyle) {
@@ -27,29 +39,13 @@ const DotMatrix = (props: DotMatrixPropType): JSX.Element => {
     return {};
   };
 
-  useEffect(() => {
-    const partial: Array<number> = [];
-    if (total) {
-      data?.forEach((each: DataPointType, i: number) => {
-        partial.push(getPartialDots(each, total));
-        if (i === data?.length - 1) setPartialVal(partial);
-      })
-    }
-  }, [total]);
-
   const getNumberOfDots = (point: DataPointType): number =>  {
-    const { rows, columns } = dimensions;
+    const { rows = 5, columns = 12 } = dimensions;
     const percentage = point.count / total;
     const dots = percentage * rows * columns;
     const returnVal = Math.floor(dots);
     return returnVal;
   }
-  const getPartialDots = (point: DataPointType, total: number): number => {
-    const { rows, columns } = dimensions;
-    const percentage = point.count / total;
-    return percentage * rows * columns - getNumberOfDots(point);
-  }
-
   const getWidth = (): number => dimensions.columns * 41;
 
   return (
@@ -69,9 +65,9 @@ const DotMatrix = (props: DotMatrixPropType): JSX.Element => {
           ...getStyles(Elements.Container)
         }}
       >
-        {data.map((eachPoint: DataPointType, index: number) => (
+        {data?.map((eachPoint: DataPointType, index: number) => (
           <React.Fragment key={v4()}>
-            {Array.apply(null, Array(getNumberOfDots(eachPoint))).map((item: null, columnIndex: number) => (
+            {eachPoint && Array.apply(null, Array(getNumberOfDots(eachPoint))).map((item: null, columnIndex: number) => (
               (columnIndex === 0 && index > 0 && partialVal[index - 1] < 1 && partialVal[index - 1] !== 0 && (
                 <div
                   className={classes.eachDot}

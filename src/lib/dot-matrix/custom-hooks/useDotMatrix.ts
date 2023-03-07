@@ -1,10 +1,8 @@
-import { useState, useEffect } from "react";
+import { useMemo} from "react";
 import { DataPointType } from '../types';
 import { COLOR_PALATTE } from '../constants';
 
 export const useDotMatrix = (dataPoints: DataPointType[]): [DataPointType[], number] => {
-  const [data, setData] = useState<DataPointType[]>([]);
-  const [total, setTotal] = useState<number>(0);
 
   const isColorPresent = (color: string, dataValues: DataPointType[] = []): boolean => {
     const findColor = dataPoints?.find((e) => e.color === color);
@@ -12,10 +10,10 @@ export const useDotMatrix = (dataPoints: DataPointType[]): [DataPointType[], num
     return Boolean(findColor) || Boolean(colorInLocal);
   }
 
-  useEffect(() => {
+  const [data, total] = useMemo(() => {
+    const values: DataPointType[] = [];
+    let totalVal = 0
     if (dataPoints) {
-      const values = [...(data || [])];
-      let totalVal = 0
       let colorIndex = 0;
       dataPoints.forEach((point: DataPointType, index: number) => {
         totalVal += point.count;
@@ -29,12 +27,9 @@ export const useDotMatrix = (dataPoints: DataPointType[]): [DataPointType[], num
           } while (isColorPresent(randomColor, values))
           values.push({ ...point, color: randomColor})
         }
-        if (index === dataPoints.length - 1) {
-          setData(values);
-          setTotal(totalVal);
-        }
       })
     }
+    return [values, totalVal]
   }, [dataPoints]);
 
   return [data, total];
