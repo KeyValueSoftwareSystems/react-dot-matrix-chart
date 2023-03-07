@@ -2,7 +2,7 @@ import { useMemo} from "react";
 import { DataPointType } from '../types';
 import { COLOR_PALATTE } from '../constants';
 
-export const useDotMatrix = (dataPoints: DataPointType[]): [DataPointType[], number] => {
+export const useDotMatrix = (dataPoints: DataPointType[], dimensions: { rows?: number, columns?: number }): [DataPointType[], number, number[]] => {
 
   const isColorPresent = (color: string, dataValues: DataPointType[] = []): boolean => {
     const findColor = dataPoints?.find((e) => e.color === color);
@@ -32,5 +32,18 @@ export const useDotMatrix = (dataPoints: DataPointType[]): [DataPointType[], num
     return [values, totalVal]
   }, [dataPoints]);
 
-  return [data, total];
+  const partialVal: number[] = useMemo(() => {
+    const partial: Array<number> = [];
+    if (total) {
+      data?.forEach((each: DataPointType) => {
+        const { rows = 5, columns = 12 } = dimensions;
+        const percentage = each.count / total;
+        const partialDots = percentage * rows * columns;
+        const value = partialDots - Math.floor(partialDots);
+        partial.push(value);
+      })
+    }
+    return partial;
+  }, [total]);
+  return [data, total, partialVal];
 }

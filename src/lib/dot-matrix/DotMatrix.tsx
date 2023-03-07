@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React from "react";
 import { v4 } from 'uuid';
 import classes from './styles.module.scss';
 import { DotMatrixPropType, DataPointType } from "./types";
@@ -16,21 +16,7 @@ const DotMatrix = (props: DotMatrixPropType): JSX.Element => {
     styles = {}
   } = props;
 
-  const [data, total] = useDotMatrix(dataPoints);
-
-  const partialVal: number[] = useMemo(() => {
-    const partial: Array<number> = [];
-    if (total) {
-      data?.forEach((each: DataPointType, i: number) => {
-        const { rows = 5, columns = 12 } = dimensions;
-        const percentage = each.count / total;
-        const partialDots = percentage * rows * columns;
-        const value = partialDots - Math.floor(partialDots);
-        partial.push(value);
-      })
-    }
-    return partial;
-  }, [total]);
+  const [data, total, partialVal] = useDotMatrix(dataPoints, dimensions);
   const getStyles = (element: Elements): object => {
     const getElementStyle = styles[element];
     if (getElementStyle) {
