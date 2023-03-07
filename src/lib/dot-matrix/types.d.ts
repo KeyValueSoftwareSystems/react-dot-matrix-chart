@@ -1,21 +1,21 @@
 export interface DataPointType {
   name: string,
   count: number,
-  colorPreference?: string,
+  color?: string,
   partialVal? : number
 }
 
 export interface DotMatrixPropType {
   title?: string,
   dataPoints: DataPointType[],
-  rows?: number,
-  columns?: number,
+  dimensions?: {
+    rows: number,
+    columns: number
+  }
   styles?: {
-    dot: () => {},
-    title: () => {},
-    container: () => {},
-    categoryDisplay: () => {},
-    eachCategoryDisplay: () => {}
+    Dot: () => {},
+    Title: () => {},
+    Container: () => {}
   }
 }
 

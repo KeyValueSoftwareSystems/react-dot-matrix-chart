@@ -16,8 +16,10 @@ export default {
 export const DotMatrixExample = Template.bind({});
 DotMatrixExample.args = {
   title:'Demo',
-  rows: 5,
-  columns: 5,
+  dimensions: {
+    rows: 5,
+    columns: 10,
+  },
   styles:{
 
   },
@@ -25,7 +27,7 @@ DotMatrixExample.args = {
     {
       name: 'Category 1',
       count: 15,
-      colorPreference: '#96C3EB'
+      color: '#96C3EB'
     },
     {
       name: 'Category 2',
