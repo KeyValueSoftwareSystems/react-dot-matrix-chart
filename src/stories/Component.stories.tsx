@@ -15,7 +15,6 @@ export default {
 
 export const DotMatrixExample = Template.bind({});
 DotMatrixExample.args = {
-  title:'Demo',
   dimensions: {
     rows: 5,
     columns: 10,

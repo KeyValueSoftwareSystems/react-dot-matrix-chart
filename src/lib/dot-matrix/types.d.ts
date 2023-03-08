@@ -5,7 +5,6 @@ export interface DataPointType {
 }
 
 export interface DotMatrixPropType {
-  title?: string,
   dataPoints: DataPointType[],
   dimensions?: {
     rows: number,
@@ -13,7 +12,6 @@ export interface DotMatrixPropType {
   }
   styles?: {
     Dot: () => {},
-    Title: () => {},
     Container: () => {}
   }
 }

@@ -7,7 +7,6 @@ import { Elements, DEFAULT_COLUMNS, DEFAULT_ROWS } from "./constants";
 
 const DotMatrix = (props: DotMatrixPropType): JSX.Element => {
   const {
-    title,
     dataPoints,
     dimensions = {
       rows: DEFAULT_ROWS,
@@ -34,15 +33,6 @@ const DotMatrix = (props: DotMatrixPropType): JSX.Element => {
 
   return (
     <div className={classes.container}>
-      {title && (
-        <div
-          className={classes.title}
-          style={getStyles(Elements.Title)}
-          id="dot-matrix-title"
-        >
-          {title}
-        </div>
-      )}
       <div
         className={classes.dotsContainer}
         style={{

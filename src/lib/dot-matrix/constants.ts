@@ -22,7 +22,6 @@ export const COLOR_PALATTE = [
 ];
 
 export enum Elements {
-  Title = "Title",
   Container = "Container",
   Dot = "Dot"
 }
