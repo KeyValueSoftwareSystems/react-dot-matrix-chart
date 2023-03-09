@@ -10,7 +10,7 @@ export const useDotMatrix = (dataPoints: DataPointType[], dimensions: { rows?: n
     let totalVal = 0
     if (dataPoints) {
       let colorIndex = 0;
-      dataPoints.forEach((point: DataPointType, index: number) => {
+      dataPoints.forEach((point: DataPointType) => {
         totalVal += point.count;
         let { color } = point;
         if (!color) {

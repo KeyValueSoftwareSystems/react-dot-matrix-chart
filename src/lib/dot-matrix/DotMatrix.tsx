@@ -48,24 +48,24 @@ const DotMatrix = (props: DotMatrixPropType): JSX.Element => {
             {eachPoint && Array.apply(null, Array(getNumberOfDots(eachPoint, rows, columns, total))).map((item: null, columnIndex: number) => (
               <div id="dot-matrix-dots" key={v4()}>
                 {(columnIndex === 0 && rowIndex > 0 && overlappingValues[rowIndex - 1] < 1 && overlappingValues[rowIndex - 1] !== 0 && (
-                <div
-                  className={classes.eachDot}
-                  style={{
-                    backgroundImage: `linear-gradient(to right, ${data[rowIndex - 1].color} 20%, ${eachPoint?.color} 50%)`,
-                    ...(getStyles(Elements.Dot))
-                  }}
-                />
-              )) || (
-                <div
-                  className={classes.eachDot}
-                  style={{
-                    backgroundColor: eachPoint?.color,
-                    ...(getStyles(Elements.Dot))
-                  }}
-                  key={v4()}
-                  id={`each-category-${rowIndex}-${columnIndex}`}
-                />
-              )}
+                  <div
+                    className={classes.eachDot}
+                    style={{
+                      backgroundImage: `linear-gradient(to right, ${data[rowIndex - 1].color} 20%, ${eachPoint?.color} 50%)`,
+                      ...(getStyles(Elements.Dot))
+                    }}
+                  />
+                )) || (
+                  <div
+                    className={classes.eachDot}
+                    style={{
+                      backgroundColor: eachPoint?.color,
+                      ...(getStyles(Elements.Dot))
+                    }}
+                    key={v4()}
+                    id={`each-category-${rowIndex}-${columnIndex}`}
+                  />
+                )}
               </div>
             ))}
           </React.Fragment>
