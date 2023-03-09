@@ -29,3 +29,5 @@ export enum Elements {
 export const DEFAULT_ROWS = 5;
 
 export const DEFAULT_COLUMNS = 12;
+
+export const CONTAINER_WIDTH_CONVERSION_FACTOR = 2.6;

@@ -3,8 +3,12 @@ import { v4 } from 'uuid';
 import classes from './styles.module.scss';
 import { DotMatrixPropType, DataPointType } from "./types";
 import { useDotMatrix } from './custom-hooks/useDotMatrix';
-import { Elements, DEFAULT_COLUMNS, DEFAULT_ROWS } from "./constants";
-
+import {
+  Elements,
+  DEFAULT_COLUMNS,
+  DEFAULT_ROWS
+} from "./constants";
+import { getNumberOfDots, getContainerWidth } from './utils/utils';
 const DotMatrix = (props: DotMatrixPropType): JSX.Element => {
   const {
     dataPoints,
@@ -15,6 +19,11 @@ const DotMatrix = (props: DotMatrixPropType): JSX.Element => {
     styles = {}
   } = props;
 
+  const {
+    rows = DEFAULT_ROWS,
+    columns = DEFAULT_ROWS
+  } = dimensions;
+
   const [data, total, overlappingValues] = useDotMatrix(dataPoints, dimensions);
   const getStyles = (element: Elements): object => {
     const getElementStyle = styles[element];
@@ -24,31 +33,25 @@ const DotMatrix = (props: DotMatrixPropType): JSX.Element => {
     return {};
   };
 
-  const getNumberOfDots = (point: DataPointType): number =>  {
-    const { rows = DEFAULT_ROWS, columns = DEFAULT_COLUMNS } = dimensions;
-    const percentage = point.count / total;
-    return Math.floor(percentage * rows * columns);
-  }
-  const getWidth = (): number => dimensions.columns * 41;
 
   return (
     <div className={classes.container}>
       <div
         className={classes.dotsContainer}
         style={{
-          width: `${getWidth()}px`,
+          width: `${getContainerWidth(columns)}rem`,
           ...getStyles(Elements.Container)
         }}
       >
-        {data?.map((eachPoint: DataPointType, index: number) => (
+        {data?.map((eachPoint: DataPointType, rowIndex: number) => (
           <React.Fragment key={v4()}>
-            {eachPoint && Array.apply(null, Array(getNumberOfDots(eachPoint))).map((item: null, columnIndex: number) => (
+            {eachPoint && Array.apply(null, Array(getNumberOfDots(eachPoint, rows, columns, total))).map((item: null, columnIndex: number) => (
               <div id="dot-matrix-dots" key={v4()}>
-                {(columnIndex === 0 && index > 0 && overlappingValues[index - 1] < 1 && overlappingValues[index - 1] !== 0 && (
+                {(columnIndex === 0 && rowIndex > 0 && overlappingValues[rowIndex - 1] < 1 && overlappingValues[rowIndex - 1] !== 0 && (
                 <div
                   className={classes.eachDot}
                   style={{
-                    backgroundImage: `linear-gradient(to right, ${data[index - 1].color} 20%, ${eachPoint?.color} 50%)`,
+                    backgroundImage: `linear-gradient(to right, ${data[rowIndex - 1].color} 20%, ${eachPoint?.color} 50%)`,
                     ...(getStyles(Elements.Dot))
                   }}
                 />
@@ -60,7 +63,7 @@ const DotMatrix = (props: DotMatrixPropType): JSX.Element => {
                     ...(getStyles(Elements.Dot))
                   }}
                   key={v4()}
-                  id={`each-category-${index}-${columnIndex}`}
+                  id={`each-category-${rowIndex}-${columnIndex}`}
                 />
               )}
               </div>

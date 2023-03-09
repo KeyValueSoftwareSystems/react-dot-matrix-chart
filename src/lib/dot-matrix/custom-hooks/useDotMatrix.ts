@@ -1,14 +1,9 @@
 import { useMemo} from "react";
 import { DataPointType } from '../types';
 import { COLOR_PALATTE, DEFAULT_COLUMNS , DEFAULT_ROWS } from '../constants';
+import { isColorPresent } from "../utils/utils";
 
 export const useDotMatrix = (dataPoints: DataPointType[], dimensions: { rows?: number, columns?: number }): [DataPointType[], number, number[]] => {
-
-  const isColorPresent = (color: string, dataValues: DataPointType[] = []): boolean => {
-    const findColor = dataPoints?.find((e) => e.color === color);
-    const colorInLocal = dataValues?.find((e) => e.color === color);
-    return Boolean(findColor) || Boolean(colorInLocal);
-  }
 
   const [data, total] = useMemo(() => {
     const values: DataPointType[] = [];
@@ -22,7 +17,7 @@ export const useDotMatrix = (dataPoints: DataPointType[], dimensions: { rows?: n
           do {
             color = COLOR_PALATTE[colorIndex];
             colorIndex++;
-          } while (isColorPresent(color, values))
+          } while (isColorPresent(dataPoints, color, values))
         }
         values.push({ ...point, color });
       })
