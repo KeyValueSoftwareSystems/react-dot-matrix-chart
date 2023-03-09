@@ -1,7 +1,7 @@
 {
-  "name": "@kv/ts-boilerplate-code",
+  "name": "react-dot-matrix-chart",
   "version": "0.1.0",
-  "description": "Typescript Boilerplate code",
+  "description": "A Dot Matrix Chart component",
   "main": "build/index.js",
   "source": "src/lib/index.tsx",
   "types": "build/types/index.d.ts",
@@ -20,12 +20,12 @@
     "node": ">=10"
   },
   "repository": {
-    "type": "bitbucket",
-    "url": "https://bitbucket.org/keyvaluesoftwaresystems/kv-boilerplate-ts"
+    "type": "github",
+    "url": "https://github.com/KeyValueSoftwareSystems/react-dot-matrix-chart"
   },
   "author": "Keyvalue",
   "license": "",
-  "homepage": "https://bitbucket.org/keyvaluesoftwaresystems/kv-boilerplate-ts",
+  "homepage": "https://github.com/KeyValueSoftwareSystems/react-dot-matrix-chart",
   "keywords": [
     "library",
     "starter",
