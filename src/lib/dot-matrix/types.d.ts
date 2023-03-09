@@ -7,8 +7,8 @@ export interface DataPointType {
 export interface DotMatrixPropType {
   dataPoints: DataPointType[],
   dimensions?: {
-    rows: number,
-    columns: number
+    rows?: number,
+    columns?: number
   }
   styles?: {
     Dot: () => {},
