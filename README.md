@@ -7,7 +7,7 @@
 <a href="https://www.npmjs.com/package/react-dot-matrix-chart"><img src="https://badgen.net/npm/v/react-dot-matrix-chart?color=blue" alt="npm version"></a> <a href="https://www.npmjs.com/package/react-dot-matrix-chart" ><img src="https://img.shields.io/npm/dw/react-dot-matrix-chart?label=Downloads" /></a> <a href="https://github.com/KeyValueSoftwareSystems/react-dot-matrix-chart"><img src="https://github.com/KeyValueSoftwareSystems/react-dot-matrix-chart/actions/workflows/deploy.yml/badge.svg" alt="" /></a>
 
 <div align="center">
-<img src="./screenshot.png" alt="" width="269" height="416"/>
+<img src="./screenshot.png" alt="" width="416" height="199"/>
 </div>
 
  
