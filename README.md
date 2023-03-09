@@ -30,7 +30,7 @@ React Dot Matrix Chart can run in a very basic mode by just providing the `dataP
 import DotMatrix from 'react-dot-matrix-chart';
 
 <DotMatrix
-	dataPoints={dataPointsArray}
+  dataPoints={dataPointsArray}
 />
 
 ```
@@ -48,21 +48,21 @@ An example for dataPoints array is shown below:
 ```
 
 dataPointsArray = [
-	{
-		name: 'Category 1',
-		count: 10,
-		color: 'gray'
-	},
-	{
-		name: 'Category 2',
-		count: 10,
-		color: 'black'
-	},
-	{
-		name: 'Category 3',
-		count: 10,
-		color: 'green'
-	}
+  {
+    name: 'Category 1',
+    count: 10,
+    color: 'gray'
+  },
+  {
+    name: 'Category 2',
+    count: 10,
+    color: 'black'
+  },
+  {
+    name: 'Category 3',
+    count: 10,
+    color: 'green'
+  }
 ];
 
 ```
@@ -72,8 +72,8 @@ You can use `title` prop to add a Title value to the dot matrix chart
 ```
 
 <DotMatrix
-	dataPoints={dataPointsArray}
-	title="Dot Matrix"
+  dataPoints={dataPointsArray}
+  title="Dot Matrix"
 />
 
 ```
@@ -82,11 +82,11 @@ You can specify the number of rows or columns to be present in the chart as well
 
 ```
 <DotMatrix
-	dataPoints={dataPointsArray}
-	dimensions={
-		rows: 5,
-		columns: 10
-	}
+  dataPoints={dataPointsArray}
+  dimensions={
+    rows: 5,
+    columns: 10
+  }
 />
 
 ```
@@ -149,12 +149,12 @@ the below code shows all the overridable styles:
 
 ```
 <DotMatrix
-	dataPoints={dataPointsArray}
-	styles={{
-		Title: () => ({...styles}),
-		Container: () => ({...styles}),
-		Dot: () => ({...styles})
-	}}
+  dataPoints={dataPointsArray}
+  styles={{
+    Title: () => ({...styles}),
+    Container: () => ({...styles}),
+    Dot: () => ({...styles})
+  }}
 />
 
 ```
