@@ -5,6 +5,7 @@ const getPackageJson = require('./scripts/getPackageJson');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
+const MergeIntoSingleFilePlugin = require('webpack-merge-and-include-globally');
 
 const {
   version,
@@ -77,7 +78,14 @@ module.exports = {
         filename: 'css/index.css'
     }),
     new webpack.BannerPlugin(banner),
-    new HtmlWebpackPlugin()
+    new HtmlWebpackPlugin(),
+    new MergeIntoSingleFilePlugin({
+      files: {
+        'types/index.d.ts': [
+          path.resolve(__dirname, 'src/sdk/types.ts')
+        ]
+      }
+    })
   ],
   resolve: {
     extensions: ['.ts', '.js', '.tsx', '.json', ".css", ".scss"]
