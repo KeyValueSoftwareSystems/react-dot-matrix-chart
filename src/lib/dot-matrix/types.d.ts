@@ -11,8 +11,12 @@ export interface DotMatrixPropType {
     columns?: number
   }
   styles?: {
-    Dot: () => {},
-    Container: () => {}
+    Dot?: () => {},
+    DotsContainer?: () => {},
+    Container?: () => {},
+    LegendContainer?: () => {},
+    LegendName?: () => {},
+    LegendDot?: () => {}
   }
 }
 

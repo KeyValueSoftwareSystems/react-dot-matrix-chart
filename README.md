@@ -159,14 +159,20 @@ the below code shows all the overridable styles:
 <DotMatrix
   dataPoints={dataPointsArray}
   styles={{
-    Title: () => ({...styles}),
     Container: () => ({...styles}),
-    Dot: () => ({...styles})
+    DotsContainer: () => ({...styles}),
+    Dot: () => ({...styles}),
+    LegendContainer: () => ({...styles}),
+    LegendName: () => ({...styles}),
+    LegendDot: () => ({...styles})
   }}
 />
 
 ```
 
--  `Title` - overrides the chart title style
 -  `Container` - overrides the dot matrix chart container style
+-  `DotsContainer` - overrides the dot matrix chart dots container style
 -  `Dot` - overrides the style of each dot in the chart
+-  `LegendContainer` - overrides the legend (details) container style
+-  `LegendName` - overrides the legend name style
+-  `LegendDot` - overrides the legend dot style

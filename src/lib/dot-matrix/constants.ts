@@ -23,7 +23,11 @@ export const COLOR_PALATTE = [
 
 export enum Elements {
   Container = "Container",
-  Dot = "Dot"
+  DotsContainer = "DotsContainer",
+  Dot = "Dot",
+  LegendContainer = "LegendContainer",
+  LegendDot = "LegendDot",
+  LegendName = "LegendName"
 }
 
 export const DEFAULT_ROWS = 5;

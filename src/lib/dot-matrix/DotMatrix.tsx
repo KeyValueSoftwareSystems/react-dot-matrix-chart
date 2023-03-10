@@ -37,39 +37,68 @@ const DotMatrix = (props: DotMatrixPropType): JSX.Element => {
   return (
     <div className={classes.container}>
       <div
-        className={classes.dotsContainer}
+        className={classes.dotsWithLegend}
         style={{
-          width: `${getContainerWidth(columns)}rem`,
           ...getStyles(Elements.Container)
         }}
       >
-        {data?.map((eachPoint: DataPointType, rowIndex: number) => (
-          <React.Fragment key={v4()}>
-            {eachPoint && Array.apply(null, Array(getNumberOfDots(eachPoint, rows, columns, total))).map((item: null, columnIndex: number) => (
-              <div id="dot-matrix-dots" key={v4()}>
-                {(columnIndex === 0 && rowIndex > 0 && overlappingValues[rowIndex - 1] < 1 && overlappingValues[rowIndex - 1] !== 0 && (
-                  <div
-                    className={classes.eachDot}
-                    style={{
-                      backgroundImage: `linear-gradient(to right, ${data[rowIndex - 1].color} 20%, ${eachPoint?.color} 50%)`,
-                      ...(getStyles(Elements.Dot))
-                    }}
-                  />
-                )) || (
-                  <div
-                    className={classes.eachDot}
-                    style={{
-                      backgroundColor: eachPoint?.color,
-                      ...(getStyles(Elements.Dot))
-                    }}
-                    key={v4()}
-                    id={`each-category-${rowIndex}-${columnIndex}`}
-                  />
-                )}
+        <div
+          className={classes.dotsContainer}
+          style={{
+            width: `${getContainerWidth(columns)}rem`,
+            ...getStyles(Elements.DotsContainer)
+          }}
+        >
+          {data?.map((eachPoint: DataPointType, rowIndex: number) => (
+            <React.Fragment key={v4()}>
+              {eachPoint && Array.apply(null, Array(getNumberOfDots(eachPoint, rows, columns, total))).map((item: null, columnIndex: number) => (
+                <div id="dot-matrix-dots" key={v4()}>
+                  {(columnIndex === 0 && rowIndex > 0 && overlappingValues[rowIndex - 1] < 1 && overlappingValues[rowIndex - 1] !== 0 && (
+                    <div
+                      className={classes.eachDot}
+                      style={{
+                        backgroundImage: `linear-gradient(to right, ${data[rowIndex - 1].color} 20%, ${eachPoint?.color} 50%)`,
+                        ...(getStyles(Elements.Dot))
+                      }}
+                    />
+                  )) || (
+                    <div
+                      className={classes.eachDot}
+                      style={{
+                        backgroundColor: eachPoint?.color,
+                        ...(getStyles(Elements.Dot))
+                      }}
+                      key={v4()}
+                      id={`each-category-${rowIndex}-${columnIndex}`}
+                    />
+                  )}
+                </div>
+              ))}
+            </React.Fragment>
+          ))}
+        </div>
+        <div
+          className={classes.legends}
+          style={{ ...getStyles(Elements.LegendContainer)}}
+        >
+          {data?.map((point: DataPointType) => (
+            <div className={classes.legend} key={v4()}>
+              <div
+                className={classes.legendDot}
+                style={{
+                  backgroundColor: point?.color,
+                  ...(getStyles(Elements.LegendDot))
+                }}
+              />
+              <div
+                className={classes.name}
+                style={{ ...getStyles(Elements.LegendName)}}
+              >
+                {point.name}
               </div>
-            ))}
-          </React.Fragment>
-        ))}
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   )
