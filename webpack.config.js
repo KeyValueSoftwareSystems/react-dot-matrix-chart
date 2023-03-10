@@ -3,6 +3,7 @@ const webpack = require('webpack');
 const TerserPlugin = require('terser-webpack-plugin');
 const getPackageJson = require('./scripts/getPackageJson');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const HtmlWebpackPlugin = require('html-webpack-plugin')
 const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
 
 const {
@@ -47,7 +48,10 @@ module.exports = {
         test: /\.(m|j|t|)s$/,
         exclude: /(node_modules|bower_components)/,
         use: {
-          loader: 'babel-loader'
+          loader: 'babel-loader',
+          options: {
+            presets: ['@babel/preset-env', '@babel/preset-react'],
+          }
         }
       },
       {
@@ -72,7 +76,8 @@ module.exports = {
     new MiniCssExtractPlugin({
         filename: 'css/index.css'
     }),
-    new webpack.BannerPlugin(banner)
+    new webpack.BannerPlugin(banner),
+    new HtmlWebpackPlugin()
   ],
   resolve: {
     extensions: ['.ts', '.js', '.tsx', '.json', ".css", ".scss"]
