@@ -81,7 +81,7 @@ jobs:
         run: npm run build
 
       - name: Publish package
-        uses: npm publish
+        uses: JS-DevTools/npm-publish@v1
         with:
           access: 'public'
           check-version: true
