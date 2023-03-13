@@ -162,7 +162,7 @@ Props that can be passed to the component are listed below:
     <tr>
       <td><code><b>legendPosition?:</b> string</code></td>
       <td>
-        To specify the position of the legend. The values that can be passes using this prop are 'left', 'right', 'top' and 'bottom'
+        To specify the position of the legend. The values that can be passed using this prop are 'left', 'right', 'top' and 'bottom'
       </td>
       <td><code>right</code></td>
     </tr>
