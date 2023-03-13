@@ -172,7 +172,7 @@ Props that can be passed to the component are listed below:
 
 ## Style Customizations
 
-All the default styles provided by this package are overridable using the `style` prop.
+All the default styles provided by this package are overridable using the `styles` prop.
 the below code shows all the overridable styles:
 
 ```jsx
