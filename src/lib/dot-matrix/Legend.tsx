@@ -1,5 +1,6 @@
 import React from 'react';
 import { v4 } from 'uuid';
+import { getStyles } from './utils/utils';
 import { DataPointType, LegendProps } from "./types";
 import {
   Elements
@@ -8,13 +9,13 @@ import classes from './styles.module.scss';
 
 const Legend = (props: LegendProps): JSX.Element => {
   const {
-    getStyles,
+    styles,
     data
   } = props;
   return (
     <div
       className={classes.legends}
-      style={{ ...getStyles(Elements.LegendContainer)}}
+      style={{ ...getStyles(Elements.LegendContainer, styles)}}
     >
       {data?.map((point: DataPointType) => (
         <div className={classes.legend} key={v4()}>
@@ -22,12 +23,12 @@ const Legend = (props: LegendProps): JSX.Element => {
             className={classes.legendDot}
             style={{
               backgroundColor: point?.color,
-              ...(getStyles(Elements.LegendDot))
+              ...(getStyles(Elements.LegendDot, styles))
             }}
           />
           <div
             className={classes.name}
-            style={{ ...getStyles(Elements.LegendName)}}
+            style={{ ...getStyles(Elements.LegendName, styles)}}
           >
             {point.name}
           </div>

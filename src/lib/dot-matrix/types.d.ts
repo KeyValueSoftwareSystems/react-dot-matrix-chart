@@ -5,7 +5,7 @@ export interface DataPointType {
 }
 export interface ChartProps {
   dimensions?: DimensionProp,
-  getStyles: (string) => {},
+  styles: StyleProp,
   data: DataPointType[],
   overlappingValues: number[],
   total: number
@@ -16,8 +16,16 @@ export type DimensionProp = {
   columns?: number
 }
 
+export type StyleProp = {
+  Dot?: () => {},
+  DotsContainer?: () => {},
+  Container?: () => {},
+  LegendContainer?: () => {},
+  LegendName?: () => {},
+  LegendDot?: () => {}
+}
 export interface LegendProps {
-  getStyles: (string) => {},
+  styles: StyleProp,
   data: DataPointType[]
 }
 export interface DotMatrixPropType {
@@ -25,13 +33,6 @@ export interface DotMatrixPropType {
   dimensions?: DimensionProp,
   showLegend?: boolean,
   legendPosition?: 'left' | 'right' | 'top' | 'bottom'
-  styles?: {
-    Dot?: () => {},
-    DotsContainer?: () => {},
-    Container?: () => {},
-    LegendContainer?: () => {},
-    LegendName?: () => {},
-    LegendDot?: () => {}
-  }
+  styles?: StyleProp
 }
 

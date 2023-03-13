@@ -19,7 +19,7 @@ Try tweaking a dot matrix using this codesandbox link <a href="https://codesandb
 
 The easiest way to use react-dot-matrix-chart is to install it from npm and build it into your app with Webpack.
 
-```
+```bash
 npm install react-dot-matrix-chart
 ```
 
@@ -33,7 +33,7 @@ You’ll need to install React separately since it isn't included in the package
 
 React Dot Matrix Chart can run in a very basic mode by just providing the `dataPoints` like given below:
 
-```
+```jsx
 
 import DotMatrix from 'react-dot-matrix-chart';
 
@@ -53,9 +53,8 @@ The datapoints is an array of objects with the following keys:
 
 An example for dataPoints array is shown below:
 
-```
-
-dataPointsArray = [
+```jsx
+const dataPointsArray = [
   {
     name: 'Category 1',
     count: 10,
@@ -77,18 +76,16 @@ dataPointsArray = [
 
 You can use `title` prop to add a Title value to the dot matrix chart
 
-```
-
+```jsx
 <DotMatrix
   dataPoints={dataPointsArray}
   title="Dot Matrix"
 />
-
 ```
 
 You can specify the number of rows or columns to be present in the chart as well using the dimensions prop.
 
-```
+```jsx
 <DotMatrix
   dataPoints={dataPointsArray}
   dimensions={
@@ -96,13 +93,22 @@ You can specify the number of rows or columns to be present in the chart as well
     columns: 10
   }
 />
-
 ```
 
 If the count given in the dataPoints array results in a partial percentage (decimal value), a gradient dot will be displayed as shown below
+<div  align="center">
+<img  src="./screenshotPartial.png"  alt=""  width="208"  height="199"/>
+</div>
 
-  
+We can also control the display of the legend consisting of the details regarding the colour distribution using the props 'showLegend' and 'legendPosition' as follows.
 
+```jsx
+<DotMatrix
+  dataPoints={dataPointsArray}
+  showLegend={true}
+  legendPosition="top"
+/>
+```
 ## Props
 
   
@@ -146,6 +152,20 @@ Props that can be passed to the component are listed below:
       </td>
       <td><code>undefined</code></td>
     </tr>
+    <tr>
+      <td><code><b>showLegend?:</b> boolean</code></td>
+      <td>
+        To specify whether to show the legend or not
+      </td>
+      <td><code>false</code></td>
+    </tr>
+    <tr>
+      <td><code><b>legendPosition?:</b> string</code></td>
+      <td>
+        To specify the position of the legend. The values that can be passes using this prop are 'left', 'right', 'top' and 'bottom'
+      </td>
+      <td><code>right</code></td>
+    </tr>
   </tbody>
 </table>
 
@@ -155,7 +175,7 @@ Props that can be passed to the component are listed below:
 All the default styles provided by this package are overridable using the `style` prop.
 the below code shows all the overridable styles:
 
-```
+```jsx
 <DotMatrix
   dataPoints={dataPointsArray}
   styles={{

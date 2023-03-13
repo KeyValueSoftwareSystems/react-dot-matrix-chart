@@ -4,6 +4,7 @@ import { DotMatrixPropType } from "./types";
 import { useDotMatrix } from './custom-hooks/useDotMatrix';
 import Chart from './Chart';
 import Legend from './Legend';
+import { getLegendPosition, getStyles } from "./utils/utils";
 import {
   Elements,
   DEFAULT_COLUMNS,
@@ -23,50 +24,17 @@ const DotMatrix = (props: DotMatrixPropType): JSX.Element => {
   } = props;
 
   const [data, total, overlappingValues] = useDotMatrix(dataPoints, dimensions);
-  const getStyles = (element: Elements): object => {
-    const getElementStyle = styles[element];
-    if (getElementStyle) {
-      return getElementStyle();
-    }
-    return {};
-  };
-
-
-  const getLegendPosition = (): {flexDirection: string, alignItems: string} => {
-    let flexDirection = '';
-    let alignItems = 'end';
-    switch (legendPosition) {
-    case 'left':
-      flexDirection = 'row-reverse';
-      break;
-    case 'right':
-      flexDirection = 'row';
-      break;
-    case 'top':
-      flexDirection = 'column-reverse';
-      alignItems = 'center';
-      break;
-    case 'bottom':
-      flexDirection = 'column';
-      alignItems = 'center';
-      break;
-    default:
-      flexDirection = 'row'
-      break;
-    }
-    return { flexDirection, alignItems};
-  }
   return (
     <div className={classes.container}>
       <div
         className={classes.dotsWithLegend}
         style={{
-          ...getStyles(Elements.Container),
-          ...(getLegendPosition() as React.CSSProperties)
+          ...getStyles(Elements.Container, styles),
+          ...(getLegendPosition(legendPosition) as React.CSSProperties)
         }}
       >
         <Chart
-          getStyles={getStyles}
+          styles={styles}
           dimensions={dimensions}
           data={data}
           total={total}
@@ -74,7 +42,7 @@ const DotMatrix = (props: DotMatrixPropType): JSX.Element => {
         />
         {showLegend && (
           <Legend
-            getStyles={getStyles}
+            styles={styles}
             data={data}
           />
         )}
