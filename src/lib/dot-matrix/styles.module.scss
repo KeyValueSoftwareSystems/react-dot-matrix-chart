@@ -1,13 +1,12 @@
 .container {
   margin: 10px;
   width: fit-content;
-  .title {
-    font-size: 25px;
-    font-weight: 500;
-    margin-bottom: 10px;
+  .dotsWithLegend {
     width: 100%;
-    justify-content: center;
     display: flex;
+    gap: 50px;
+    justify-content: space-between;
+    align-items: end;
   }
   .dotsContainer {
     display: flex;
@@ -16,8 +15,29 @@
     width: 490px;
     .eachDot {
       border-radius: 50%;
-      width: 35px;
-      height: 35px;
+      width: 2.2rem;
+      height: 2.2rem;
     }
+  }
+  .legendDot {
+    border-radius: 50%;
+    width: 1.6rem;
+    height: 1.6rem;
+  }
+  .legend {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    .name {
+      font-family: sans-serif;
+      font-size: 12px
+    }
+  }
+  .legends {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    border: 1px solid gainsboro;
+    padding: 7px;
   }
 }
