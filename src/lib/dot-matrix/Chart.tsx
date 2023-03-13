@@ -3,7 +3,8 @@ import { v4 } from 'uuid';
 import {
   getNumberOfDots,
   getContainerWidth,
-  getStyles
+  getStyles,
+  hasOverlapping
 } from './utils/utils';
 import {
   Elements,
@@ -26,9 +27,6 @@ const Chart = (props: ChartProps) : JSX.Element => {
     columns = DEFAULT_COLUMNS
   } = dimensions;
 
-  const hasOverlapping = (values: number[], indexRow: number, indexColumn: number): boolean => (
-    indexColumn === 0 && indexRow > 0 && values[indexRow - 1] < 1 && values[indexRow - 1] !== 0
-  );
   return (
     <div
       className={classes.dotsContainer}

@@ -37,3 +37,7 @@ export const getStyles = (element: Elements, styles: StyleProp): object => {
   }
   return {};
 };
+
+export const hasOverlapping = (values: number[], indexRow: number, indexColumn: number): boolean => (
+  indexColumn === 0 && indexRow > 0 && values[indexRow - 1] < 1 && values[indexRow - 1] !== 0
+);
