@@ -74,15 +74,6 @@ const dataPointsArray = [
 
 ```
 
-You can use `title` prop to add a Title value to the dot matrix chart
-
-```jsx
-<DotMatrix
-  dataPoints={dataPointsArray}
-  title="Dot Matrix"
-/>
-```
-
 You can specify the number of rows or columns to be present in the chart as well using the dimensions prop.
 
 ```jsx
@@ -130,13 +121,6 @@ Props that can be passed to the component are listed below:
       An array of category objects to specifying the count and name of each section
       </td>
       <td><code>undefined</code></td>
-    </tr>
-    <tr>
-      <td><code><b>title?:</b> string</code></td>
-      <td>
-      The title of Dot Matrix chart rendered
-      </td>
-      <td><code>''</code></td>
     </tr>
     <tr>
       <td><code><b>dimensions?:</b> object</code></td>
