@@ -51,7 +51,7 @@ test("If the color is used in the Dot Matrix Chart", async () => {
   if (dom) {
     const dot = await getById(dom.container, "each-category-0-0");
     if (!dot) throw Error("Dot Absent");
-    expect(dot.style._values).toEqual({ "background-color": `black` })
+    expect(dot.style._values["background-color"]).toBe('black')
   } else {
     throw Error("No DOM Found");
   }

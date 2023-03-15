@@ -1,11 +1,9 @@
 import { DataPointType, StyleProp } from "../types";
-import { CONTAINER_WIDTH_CONVERSION_FACTOR, Elements } from '../constants';
+import { Elements } from '../constants';
 export const getNumberOfDots = (point: DataPointType, rows: number, columns: number, total: number): number =>  {
   const percentage = point.count / total;
   return Math.floor(percentage * rows * columns);
 }
-
-export const getContainerWidth = (columns: number): number => columns * CONTAINER_WIDTH_CONVERSION_FACTOR;
 
 export const isColorPresent = (dataPoints: DataPointType[], color: string, dataValues: DataPointType[] = []): boolean => {
   const findColor = dataPoints?.find((e) => e.color === color);
@@ -41,3 +39,12 @@ export const getStyles = (element: Elements, styles: StyleProp): object => {
 export const hasOverlapping = (values: number[], indexRow: number, indexColumn: number): boolean => (
   indexColumn === 0 && indexRow > 0 && values[indexRow - 1] < 1 && values[indexRow - 1] !== 0
 );
+
+export const findContainerWidth = (id: string):number => {
+  const element = document.getElementById(id);
+  let value = 0;
+  if (element) {
+    value = element.clientWidth;
+  }
+  return value;
+}

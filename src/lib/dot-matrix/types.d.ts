@@ -8,7 +8,8 @@ export interface ChartProps {
   styles: StyleProp,
   data: DataPointType[],
   overlappingValues: number[],
-  total: number
+  total: number,
+  width: number
 }
 
 export type DimensionProp = {
