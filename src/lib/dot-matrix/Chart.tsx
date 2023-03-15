@@ -2,7 +2,6 @@ import React from 'react';
 import { v4 } from 'uuid';
 import {
   getNumberOfDots,
-  getContainerWidth,
   getStyles,
   hasOverlapping
 } from './utils/utils';
@@ -20,18 +19,25 @@ const Chart = (props: ChartProps) : JSX.Element => {
     styles,
     data,
     overlappingValues,
-    total
+    total,
+    width
   } = props;
   const {
     rows = DEFAULT_ROWS,
     columns = DEFAULT_COLUMNS
   } = dimensions;
 
+  const getDotWidth = (): number => {
+    let dotWidth = 35;
+    if (width) {
+      dotWidth = width / columns - 19;
+    }
+    return dotWidth;
+  }
   return (
     <div
       className={classes.dotsContainer}
       style={{
-        width: `${getContainerWidth(columns)}rem`,
         ...getStyles(Elements.DotsContainer, styles)
       }}
     >
@@ -44,6 +50,8 @@ const Chart = (props: ChartProps) : JSX.Element => {
                   className={classes.eachDot}
                   style={{
                     backgroundImage: `linear-gradient(to right, ${data[rowIndex - 1].color} 20%, ${dataItem?.color} 50%)`,
+                    width: `${getDotWidth()}px`,
+                    height: `${getDotWidth()}px`,
                     ...(getStyles(Elements.Dot, styles))
                   }}
                 />
@@ -52,6 +60,8 @@ const Chart = (props: ChartProps) : JSX.Element => {
                   className={classes.eachDot}
                   style={{
                     backgroundColor: dataItem?.color,
+                    width: `${getDotWidth()}px`,
+                    height: `${getDotWidth()}px`,
                     ...(getStyles(Elements.Dot, styles))
                   }}
                   key={v4()}

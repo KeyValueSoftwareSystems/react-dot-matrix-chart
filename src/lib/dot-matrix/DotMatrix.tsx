@@ -1,10 +1,10 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import classes from './styles.module.scss';
 import { DotMatrixPropType } from "./types";
 import { useDotMatrix } from './custom-hooks/useDotMatrix';
 import Chart from './Chart';
 import Legend from './Legend';
-import { getLegendPosition, getStyles } from "./utils/utils";
+import { getLegendPosition, getStyles, findContainerWidth } from "./utils/utils";
 import {
   Elements,
   DEFAULT_COLUMNS,
@@ -23,9 +23,26 @@ const DotMatrix = (props: DotMatrixPropType): JSX.Element => {
     legendPosition = DEFAULT_LEGEND_POSITION
   } = props;
 
+  const [width, setWidth] = useState<number>(0);
   const [data, total, overlappingValues] = useDotMatrix(dataPoints, dimensions);
+
+  useEffect(() => {
+    findChartContainerWidth();
+  }, []);
+  useEffect(() => {
+    findChartContainerWidth();
+  }, [showLegend, legendPosition]);
+  const findChartContainerWidth = (): void => {
+    const widthValue = findContainerWidth('dots-container');
+    if (widthValue) setWidth(widthValue);
+  }
+  window.onresize = (): void => {
+    findChartContainerWidth();
+  };
   return (
-    <div className={classes.container}>
+    <div
+      className={classes.container}
+    >
       <div
         className={classes.dotsWithLegend}
         style={{
@@ -33,18 +50,23 @@ const DotMatrix = (props: DotMatrixPropType): JSX.Element => {
           ...(getLegendPosition(legendPosition) as React.CSSProperties)
         }}
       >
-        <Chart
-          styles={styles}
-          dimensions={dimensions}
-          data={data}
-          total={total}
-          overlappingValues={overlappingValues}
-        />
-        {showLegend && (
-          <Legend
+        <div id="dots-container">
+          <Chart
             styles={styles}
+            dimensions={dimensions}
             data={data}
+            total={total}
+            width={width}
+            overlappingValues={overlappingValues}
           />
+        </div>
+        {showLegend && (
+          <div>
+            <Legend
+              styles={styles}
+              data={data}
+            />
+          </div>
         )}
       </div>
     </div>
