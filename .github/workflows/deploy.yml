@@ -24,6 +24,7 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: 16.x
+          scope: '@keyvaluesystems'
 
       - name: Install dependencies
         run: npm install
@@ -81,11 +82,7 @@ jobs:
         run: npm run build
 
       - name: Publish package
-        uses: JS-DevTools/npm-publish@v1
-        with:
-          access: 'public'
-          check-version: true
-          token: ${{ secrets.NPM_AUTH_TOKEN }}
+        run: npm publish --access public --//registry.npmjs.org/:_authToken=${{ secrets.NPM_AUTH_TOKEN }}
         if: success()
 
       - name: Revert package.json and package-lock.json

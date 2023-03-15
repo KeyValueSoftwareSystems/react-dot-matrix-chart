@@ -1,16 +1,17 @@
-import React, { useEffect, useState } from "react";
+import React from 'react';
 import classes from './styles.module.scss';
-import { DotMatrixPropType } from "./types";
+import { DotMatrixPropType } from './types';
 import { useDotMatrix } from './custom-hooks/useDotMatrix';
+import useChartContainerWidth from './custom-hooks/useChartContainerWidth';
 import Chart from './Chart';
 import Legend from './Legend';
-import { getLegendPosition, getStyles, findContainerWidth } from "./utils/utils";
+import { getLegendPosition, getStyles } from './utils/utils';
 import {
   Elements,
   DEFAULT_COLUMNS,
   DEFAULT_ROWS,
   DEFAULT_LEGEND_POSITION
-} from "./constants";
+} from './constants';
 const DotMatrix = (props: DotMatrixPropType): JSX.Element => {
   const {
     dataPoints,
@@ -19,30 +20,18 @@ const DotMatrix = (props: DotMatrixPropType): JSX.Element => {
       columns: DEFAULT_COLUMNS
     },
     styles = {},
-    showLegend,
+    showLegend = false,
     legendPosition = DEFAULT_LEGEND_POSITION
   } = props;
 
-  const [width, setWidth] = useState<number>(0);
+  const width = useChartContainerWidth('dots-container', [
+    showLegend,
+    legendPosition
+  ]);
   const [data, total, overlappingValues] = useDotMatrix(dataPoints, dimensions);
 
-  useEffect(() => {
-    findChartContainerWidth();
-  }, []);
-  useEffect(() => {
-    findChartContainerWidth();
-  }, [showLegend, legendPosition]);
-  const findChartContainerWidth = (): void => {
-    const widthValue = findContainerWidth('dots-container');
-    if (widthValue) setWidth(widthValue);
-  }
-  window.onresize = (): void => {
-    findChartContainerWidth();
-  };
   return (
-    <div
-      className={classes.container}
-    >
+    <div className={classes.container}>
       <div
         className={classes.dotsWithLegend}
         style={{
@@ -50,7 +39,7 @@ const DotMatrix = (props: DotMatrixPropType): JSX.Element => {
           ...(getLegendPosition(legendPosition) as React.CSSProperties)
         }}
       >
-        <div id="dots-container">
+        <div className={classes.chartContainer} id="dots-container">
           <Chart
             styles={styles}
             dimensions={dimensions}
@@ -62,15 +51,12 @@ const DotMatrix = (props: DotMatrixPropType): JSX.Element => {
         </div>
         {showLegend && (
           <div>
-            <Legend
-              styles={styles}
-              data={data}
-            />
+            <Legend styles={styles} data={data} />
           </div>
         )}
       </div>
     </div>
-  )
+  );
 };
 
 export default DotMatrix;

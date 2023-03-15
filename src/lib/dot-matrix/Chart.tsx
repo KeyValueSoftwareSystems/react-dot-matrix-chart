@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { v4 } from 'uuid';
 import {
   getNumberOfDots,
@@ -8,8 +8,10 @@ import {
 import {
   Elements,
   DEFAULT_COLUMNS,
-  DEFAULT_ROWS
-} from "./constants";
+  DEFAULT_ROWS,
+  DEFAULT_ROW_WIDTH,
+  DEFAULT_ROW_GAP
+} from './constants';
 import { ChartProps, DataPointType } from './types';
 import classes from './styles.module.scss';
 
@@ -27,13 +29,10 @@ const Chart = (props: ChartProps) : JSX.Element => {
     columns = DEFAULT_COLUMNS
   } = dimensions;
 
-  const getDotWidth = (): number => {
-    let dotWidth = 35;
-    if (width) {
-      dotWidth = width / columns - 19;
-    }
-    return dotWidth;
-  }
+  const dotWidth = useMemo(
+    () => (width ? width / columns - DEFAULT_ROW_GAP : DEFAULT_ROW_WIDTH),
+    [width]
+  );
   return (
     <div
       className={classes.dotsContainer}
@@ -49,10 +48,12 @@ const Chart = (props: ChartProps) : JSX.Element => {
                 <div
                   className={classes.eachDot}
                   style={{
-                    backgroundImage: `linear-gradient(to right, ${data[rowIndex - 1].color} 20%, ${dataItem?.color} 50%)`,
-                    width: `${getDotWidth()}px`,
-                    height: `${getDotWidth()}px`,
-                    ...(getStyles(Elements.Dot, styles))
+                    backgroundImage: `linear-gradient(to right, ${
+                      data[rowIndex - 1].color
+                    } 20%, ${dataItem?.color} 50%)`,
+                    width: `${dotWidth}px`,
+                    height: `${dotWidth}px`,
+                    ...getStyles(Elements.Dot, styles)
                   }}
                 />
               )) || (
@@ -60,9 +61,9 @@ const Chart = (props: ChartProps) : JSX.Element => {
                   className={classes.eachDot}
                   style={{
                     backgroundColor: dataItem?.color,
-                    width: `${getDotWidth()}px`,
-                    height: `${getDotWidth()}px`,
-                    ...(getStyles(Elements.Dot, styles))
+                    width: `${dotWidth}px`,
+                    height: `${dotWidth}px`,
+                    ...getStyles(Elements.Dot, styles)
                   }}
                   key={v4()}
                   id={`each-category-${rowIndex}-${columnIndex}`}
@@ -73,6 +74,6 @@ const Chart = (props: ChartProps) : JSX.Element => {
         </React.Fragment>
       ))}
     </div>
-  )
+  );
 };
 export default Chart;

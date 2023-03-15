@@ -1,5 +1,5 @@
 {
-  "name": "react-dot-matrix-chart",
+  "name": "@keyvaluesystems/react-dot-matrix-chart",
   "version": "0.2.2",
   "description": "A Dot Matrix Chart component",
   "main": "build/index.js",
