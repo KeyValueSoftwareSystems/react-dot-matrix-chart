@@ -20,7 +20,7 @@ Try tweaking a dot matrix using this codesandbox link <a href="https://codesandb
 The easiest way to use react-dot-matrix-chart is to install it from npm and build it into your app with Webpack.
 
 ```bash
-npm install react-dot-matrix-chart
+npm install @keyvaluesystems/react-dot-matrix-chart
 ```
 
 You’ll need to install React separately since it isn't included in the package.
@@ -35,7 +35,7 @@ React Dot Matrix Chart can run in a very basic mode by just providing the `dataP
 
 ```jsx
 
-import DotMatrix from 'react-dot-matrix-chart';
+import DotMatrix from '@keyvaluesystems/react-dot-matrix-chart';
 
 <DotMatrix
   dataPoints={dataPointsArray}
