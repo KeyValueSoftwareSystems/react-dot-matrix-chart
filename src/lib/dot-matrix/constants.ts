@@ -1,24 +1,13 @@
 export const COLOR_PALATTE = [
-  '#B8255F',
-  '#96C3EB',
-  '#DB4035',
-  '#4073FF',
-  '#FF9933',
-  '#884DFF',
-  '#FAD000',
-  '#AF38EB',
-  '#AFB83B',
-  '#EB96EB',
-  '#7ECC49',
-  '#E05194',
-  '#299438',
-  '#FF8D85',
-  '#6ACCBC',
-  '#808080',
-  '#158FAD',
-  '#B8B8B8',
-  '#14AAF5',
-  '#CCAC93'
+  '#fd7f6f',
+  '#7eb0d5',
+  '#b2e061',
+  '#bd7ebe',
+  '#ffb55a',
+  '#ffee65',
+  '#beb9db',
+  '#fdcce5',
+  '#8bd3c7'
 ];
 
 export enum Elements {
@@ -36,4 +25,6 @@ export const DEFAULT_COLUMNS = 12;
 
 export const DEFAULT_LEGEND_POSITION = 'right';
 
-export const CONTAINER_WIDTH_CONVERSION_FACTOR = 2.6;
+export const DEFAULT_ROW_WIDTH = 35;
+
+export const DEFAULT_ROW_GAP = 6;
