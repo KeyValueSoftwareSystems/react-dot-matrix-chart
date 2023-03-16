@@ -1,18 +1,17 @@
 .container {
-  margin: 10px;
-  width: fit-content;
+  padding: 10px;
+  width: inherit;
   .dotsWithLegend {
     width: 100%;
     display: flex;
-    gap: 50px;
-    justify-content: space-between;
+    gap: 20px;
     align-items: end;
   }
   .dotsContainer {
     display: flex;
     flex-wrap: wrap;
     gap: 6px;
-    width: 490px;
+    width: 100%;
     .eachDot {
       border-radius: 50%;
       width: 2.2rem;
@@ -39,5 +38,6 @@
     gap: 5px;
     border: 1px solid gainsboro;
     padding: 7px;
+    width: max-content;
   }
 }

@@ -10,8 +10,7 @@
   "parserOptions": {
     "ecmaFeatures": {
       "jsx": true
-    },
-    "project": "./tsconfig.json"
+    }
   },
   "plugins": [
     "@typescript-eslint",
@@ -31,7 +30,9 @@
     "max-len":["warn", 150],
     "space-before-blocks":"error",
     "prefer-spread": ["off"],
-    "react-hooks/exhaustive-deps": "off"
+    "react-hooks/exhaustive-deps": "off",
+    "arrow-parens": "error",
+    "arrow-spacing": "error"
   },
   "settings": {
     "react": {
