@@ -85,7 +85,7 @@ module.exports = {
     new MergeIntoSingleFilePlugin({
       files: {
         'types/index.d.ts': [
-          path.resolve(__dirname, 'src/sdk/types.ts')
+          path.resolve(__dirname, 'src/lib/dot-matrix/types.d.ts')
         ]
       }
     })
