@@ -27,4 +27,4 @@ export const DEFAULT_LEGEND_POSITION = 'right';
 
 export const DEFAULT_ROW_WIDTH = 35;
 
-export const DEFAULT_ROW_GAP = 6;
+export const DEFAULT_ROW_GAP = 4;
