@@ -8,7 +8,7 @@
 
 > A customizable ready to use Dot Matrix Chart Component for React
 
-Try tweaking a dot matrix using this codesandbox link <a href="https://codesandbox.io/s/dot-matrix-chart-hqw9z0" >here</a>
+Try tweaking a dot matrix using this codesandbox link <a href="https://codesandbox.io/s/dot-matrix-chart-996cd3" >here</a>
 
 ## Installation
 
