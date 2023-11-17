@@ -6,14 +6,15 @@ export interface DataPointType {
 export interface ChartProps {
   dimensions?: DimensionProp,
   styles: StyleProp,
-  data: DataPointType[],
-  overlappingValues: number[],
+  dotsToBeMapped: DataPointType[],
+  fractionalDots: number[],
   total: number,
-  width: number
+  width: number,
+  spaceBetweenDots: number
 }
 
 export type DimensionProp = {
-  rows?: number;
+  rows?: number,
   columns?: number
 }
 
@@ -25,15 +26,18 @@ export type StyleProp = {
   LegendName?: () => {},
   LegendDot?: () => {}
 }
+
 export interface LegendProps {
   styles: StyleProp,
   data: DataPointType[]
 }
+
 export interface DotMatrixPropType {
   dataPoints: DataPointType[],
   dimensions?: DimensionProp,
+  spaceBetweenDots?: number,
   showLegend?: boolean,
-  legendPosition?: 'left' | 'right' | 'top' | 'bottom'
+  legendPosition?: "left" | "left-start" | "left-end" | "right" | "right-start" | "right-end" | "top" | "top-start" | "top-end" | "bottom" | "bottom-start" | "bottom-end",
   styles?: StyleProp
 }
 

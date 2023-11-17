@@ -1,4 +1,4 @@
-export const COLOR_PALATTE = [
+export const COLOR_PALETTE = [
   '#fd7f6f',
   '#7eb0d5',
   '#b2e061',
@@ -23,8 +23,10 @@ export const DEFAULT_ROWS = 5;
 
 export const DEFAULT_COLUMNS = 12;
 
-export const DEFAULT_LEGEND_POSITION = 'right';
+export const DEFAULT_LEGEND_POSITION = 'right-end';
 
-export const DEFAULT_ROW_WIDTH = 35;
+export const DEFAULT_DOT_WIDTH = 10;
 
-export const DEFAULT_ROW_GAP = 4;
+export const DEFAULT_GAP = 4;
+
+export const DEFAULT_DOT_CONTAINER_WIDTH = 600;

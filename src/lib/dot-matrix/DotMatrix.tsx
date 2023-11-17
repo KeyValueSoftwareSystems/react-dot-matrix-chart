@@ -1,17 +1,20 @@
 import React from 'react';
-import classes from './styles.module.scss';
-import { DotMatrixPropType } from './types';
+
 import { useDotMatrix } from './custom-hooks/useDotMatrix';
-import useChartContainerWidth from './custom-hooks/useChartContainerWidth';
-import Chart from './Chart';
-import Legend from './Legend';
 import { getLegendPosition, getStyles } from './utils/utils';
 import {
-  Elements,
   DEFAULT_COLUMNS,
+  DEFAULT_GAP,
+  DEFAULT_LEGEND_POSITION,
   DEFAULT_ROWS,
-  DEFAULT_LEGEND_POSITION
+  Elements
 } from './constants';
+import { DotMatrixPropType } from './types';
+import Chart from './Chart';
+import Legend from './Legend';
+import useChartContainerWidth from './custom-hooks/useChartContainerWidth';
+import classes from './styles.module.scss';
+
 const DotMatrix = (props: DotMatrixPropType): JSX.Element => {
   const {
     dataPoints,
@@ -19,6 +22,7 @@ const DotMatrix = (props: DotMatrixPropType): JSX.Element => {
       rows: DEFAULT_ROWS,
       columns: DEFAULT_COLUMNS
     },
+    spaceBetweenDots = DEFAULT_GAP,
     styles = {},
     showLegend = false,
     legendPosition = DEFAULT_LEGEND_POSITION
@@ -28,7 +32,8 @@ const DotMatrix = (props: DotMatrixPropType): JSX.Element => {
     showLegend,
     legendPosition
   ]);
-  const [data, total, overlappingValues] = useDotMatrix(dataPoints, dimensions);
+
+  const [dotsToBeMapped, totalDots, fractionalDots] = useDotMatrix(dataPoints, dimensions);
 
   return (
     <div className={classes.container}>
@@ -43,16 +48,15 @@ const DotMatrix = (props: DotMatrixPropType): JSX.Element => {
           <Chart
             styles={styles}
             dimensions={dimensions}
-            data={data}
-            total={total}
+            dotsToBeMapped={dotsToBeMapped}
+            total={totalDots}
             width={width}
-            overlappingValues={overlappingValues}
+            fractionalDots={fractionalDots}
+            spaceBetweenDots={spaceBetweenDots}
           />
         </div>
         {showLegend && (
-          <div>
-            <Legend styles={styles} data={data} />
-          </div>
+          <Legend styles={styles} data={dotsToBeMapped} />
         )}
       </div>
     </div>

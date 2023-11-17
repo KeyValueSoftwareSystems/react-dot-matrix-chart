@@ -1,5 +1,7 @@
-import { useState, useEffect } from 'react';
-import { findContainerWidth } from '../utils/utils';
+import { useEffect, useState } from "react";
+
+import { DEFAULT_DOT_CONTAINER_WIDTH } from "../constants";
+import { findContainerWidth } from "../utils/utils";
 
 const useChartContainerWidth = (
   id: string,
@@ -15,13 +17,20 @@ const useChartContainerWidth = (
     updateContainerWidth();
   }, [...dependencyArray]);
 
-  window.onresize = (): void => {
-    updateContainerWidth();
-  };
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      window.addEventListener("resize", updateContainerWidth);
+
+      return () => {
+        window.removeEventListener("resize", updateContainerWidth);
+      };
+    }
+  }, []);
 
   const updateContainerWidth = (): void => {
-    const widthValue = findContainerWidth(id);
-    if (widthValue) setWidth(widthValue);
+    let widthValue = DEFAULT_DOT_CONTAINER_WIDTH;
+    if (typeof window !== "undefined") widthValue = findContainerWidth(id);
+    setWidth(widthValue);
   };
   return width;
 };
