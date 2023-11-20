@@ -41,7 +41,10 @@ const Chart = (props: ChartProps): JSX.Element => {
           {dataItem &&
             [...Array(getNumberOfDots(dataItem, rows, columns, total))].map(
               (item: null, columnIndex: number) => (
-                <div id="dot-matrix-dots" key={`${dataItem.name}-${rowIndex}-${columnIndex}`}>
+                <div
+                  id="dot-matrix-dots"
+                  key={`${dataItem.name}-${rowIndex}-${columnIndex}`}
+                >
                   {hasOverlapping(fractionalDots, rowIndex, columnIndex) ? (
                     <div
                       className={classes.eachDot}

@@ -54,7 +54,7 @@ const dataPointsArray = [
     name: "Category 3",
     count: 10,
     color: "green"
-  },
+  }
 ];
 ```
 
@@ -75,7 +75,6 @@ If the count given in the dataPoints array results in a partial percentage (deci
 <div  align="center">
 <img  src="./screenshotPartial.png"  alt=""  width="208"  height="199"/>
 </div>
-
 
 ## Props
 
@@ -149,7 +148,7 @@ the below code shows all the overridable styles:
     Dot: () => ({ ...styles }),
     LegendContainer: () => ({ ...styles }),
     LegendName: () => ({ ...styles }),
-    LegendDot: () => ({ ...styles }),
+    LegendDot: () => ({ ...styles })
   }}
 />
 ```

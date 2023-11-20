@@ -32,7 +32,7 @@ const Legend = (props: LegendProps): JSX.Element => {
         </div>
       ))}
     </div>
-  )
+  );
 };
 
 export default Legend;

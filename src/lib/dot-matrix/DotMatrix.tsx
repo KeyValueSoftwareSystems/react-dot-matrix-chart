@@ -1,19 +1,19 @@
-import React from 'react';
+import React from "react";
 
-import { useDotMatrix } from './custom-hooks/useDotMatrix';
-import { getLegendPosition, getStyles } from './utils/utils';
+import { useDotMatrix } from "./custom-hooks/useDotMatrix";
+import { getLegendPosition, getStyles } from "./utils/utils";
 import {
   DEFAULT_COLUMNS,
   DEFAULT_GAP,
   DEFAULT_LEGEND_POSITION,
   DEFAULT_ROWS,
   Elements
-} from './constants';
-import { DotMatrixPropType } from './types';
-import Chart from './Chart';
-import Legend from './Legend';
-import useChartContainerWidth from './custom-hooks/useChartContainerWidth';
-import classes from './styles.module.scss';
+} from "./constants";
+import { DotMatrixPropType } from "./types";
+import Chart from "./Chart";
+import Legend from "./Legend";
+import useChartContainerWidth from "./custom-hooks/useChartContainerWidth";
+import classes from "./styles.module.scss";
 
 const DotMatrix = (props: DotMatrixPropType): JSX.Element => {
   const {
@@ -28,12 +28,15 @@ const DotMatrix = (props: DotMatrixPropType): JSX.Element => {
     legendPosition = DEFAULT_LEGEND_POSITION
   } = props;
 
-  const width = useChartContainerWidth('dots-container', [
+  const width = useChartContainerWidth("dots-container", [
     showLegend,
     legendPosition
   ]);
 
-  const [dotsToBeMapped, totalDots, fractionalDots] = useDotMatrix(dataPoints, dimensions);
+  const [dotsToBeMapped, totalDots, fractionalDots] = useDotMatrix(
+    dataPoints,
+    dimensions
+  );
 
   return (
     <div className={classes.container}>
@@ -55,9 +58,7 @@ const DotMatrix = (props: DotMatrixPropType): JSX.Element => {
             spaceBetweenDots={spaceBetweenDots}
           />
         </div>
-        {showLegend && (
-          <Legend styles={styles} data={dotsToBeMapped} />
-        )}
+        {showLegend && <Legend styles={styles} data={dotsToBeMapped} />}
       </div>
     </div>
   );

@@ -9,7 +9,7 @@ export default {
   parameters: {
     // More on Story layout: https://storybook.js.org/docs/react/configure/story-layout
     layout: "fullscreen"
-  },
+  }
 } as ComponentMeta<typeof Component>;
 
 const Template: ComponentStory<typeof Component> = (args) => (
@@ -87,6 +87,43 @@ DotMatrixWithCustomStyles.args = {
       name: "Entertainment",
       count: 10,
       color: "#9C27B0"
+    }
+  ]
+};
+
+export const DotMatrixWithGradientDot = Template.bind({});
+DotMatrixWithGradientDot.args = {
+  showLegend: true,
+  dimensions: {
+    rows: 4,
+    columns: 5
+  },
+  legendPosition: "right-start",
+  dataPoints: [
+    {
+      name: "Art",
+      count: 21,
+      color: "#FFD700"
+    },
+    {
+      name: "Science",
+      count: 23,
+      color: "#ADD8E6"
+    },
+    {
+      name: "Sports",
+      count: 24,
+      color: "#FFA07A"
+    },
+    {
+      name: "Nature",
+      count: 21,
+      color: "#98FB98"
+    },
+    {
+      name: "Travel",
+      count: 25,
+      color: "#FFB6C1"
     }
   ]
 };

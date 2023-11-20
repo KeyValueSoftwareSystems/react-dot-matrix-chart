@@ -2,9 +2,9 @@ import React from "react";
 import {
   render,
   queryByAttribute,
-  queryAllByAttribute,
+  queryAllByAttribute
 } from "@testing-library/react";
-import '@testing-library/jest-dom';
+import "@testing-library/jest-dom";
 
 import { DotMatrixPropType } from "../dot-matrix/types";
 import { getStyles, hasOverlapping } from "../dot-matrix/utils/utils";
@@ -19,11 +19,11 @@ test("If all categories are displayed in Dot Matrix Chart", async () => {
     dataPoints: [
       {
         name: "Category 1",
-        count: 10,
+        count: 10
       },
       {
         name: "Category 2",
-        count: 10,
+        count: 10
       },
       {
         name: "Categroy 3",
@@ -104,13 +104,13 @@ test("renders DotMatrix with legend when showLegend is true", () => {
   expect(legendContainer).toBeInTheDocument();
 });
 
-test('getStyles util should return an empty object when no styles are provided', () => {
+test("getStyles util should return an empty object when no styles are provided", () => {
   const result = getStyles(Elements.Container, {});
   expect(result).toEqual({});
 });
 
-test('getStyles util should return the style object for a specific element if available',async () => {
-  const mockStyle = { color: 'red', fontSize: '16px' };
+test("getStyles util should return the style object for a specific element if available", async () => {
+  const mockStyle = { color: "red", fontSize: "16px" };
   const styles = {
     [Elements.DotsContainer]: () => mockStyle,
     [Elements.Dot]: () => ({})
@@ -119,7 +119,7 @@ test('getStyles util should return the style object for a specific element if av
   expect(result).toEqual(mockStyle);
 });
 
-test('should return true when [indexRow - 1] is not equal to 0 and less than 1', () => {
+test("should return true when [indexRow - 1] is not equal to 0 and less than 1", () => {
   const values = [2, 0.5, 1];
   const indexRow = 2;
   const indexColumn = 0;
