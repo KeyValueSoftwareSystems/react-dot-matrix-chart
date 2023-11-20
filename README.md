@@ -76,15 +76,6 @@ If the count given in the dataPoints array results in a partial percentage (deci
 <img  src="./screenshotPartial.png"  alt=""  width="208"  height="199"/>
 </div>
 
-We can also control the display of the legend consisting of the details regarding the colour distribution using the props 'showLegend' and 'legendPosition' as follows.
-
-```jsx
-<DotMatrix
-  dataPoints={dataPointsArray}
-  showLegend={true}
-  legendPosition="top"
-/>
-```
 
 ## Props
 

@@ -119,7 +119,7 @@ test('getStyles util should return the style object for a specific element if av
   expect(result).toEqual(mockStyle);
 });
 
-it('should return true when [indexRow - 1] is not equal to 0 and less than 1', () => {
+test('should return true when [indexRow - 1] is not equal to 0 and less than 1', () => {
   const values = [2, 0.5, 1];
   const indexRow = 2;
   const indexColumn = 0;
