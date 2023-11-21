@@ -7,7 +7,7 @@ const useChartContainerWidth = (
   id: string,
   dependencyArray: Array<boolean | string>
 ): number => {
-  const [width, setWidth] = useState<number>(0);
+  const [width, setWidth] = useState<number>(DEFAULT_DOT_CONTAINER_WIDTH);
 
   useEffect(() => {
     updateContainerWidth();
@@ -28,9 +28,9 @@ const useChartContainerWidth = (
   }, []);
 
   const updateContainerWidth = (): void => {
-    let widthValue = DEFAULT_DOT_CONTAINER_WIDTH;
+    let widthValue;
     if (typeof window !== "undefined") widthValue = findContainerWidth(id);
-    setWidth(widthValue);
+    if (widthValue) setWidth(widthValue);
   };
   return width;
 };

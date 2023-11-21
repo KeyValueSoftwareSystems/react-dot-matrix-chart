@@ -20,7 +20,7 @@ export const DotMatrixExample = Template.bind({});
 DotMatrixExample.args = {
   dimensions: {
     rows: 5,
-    columns: 10
+    columns: 5
   },
   dataPoints: [
     {
@@ -52,13 +52,17 @@ DotMatrixWithCustomStyles.args = {
     LegendContainer: () => ({
       border: "1px solid white",
       width: "60%",
-      "@media (max-width: 768px)": {
+      "@media (maxWidth: 768px)": {
         width: "50%"
       },
-      "@media (max-width: 480px)": {
+      "@media (maxWidth: 480px)": {
         width: "40%"
       }
     })
+  },
+  dimensions: {
+    rows: 8,
+    columns: 8
   },
   showLegend: true,
   legendPosition: "right",
@@ -95,7 +99,7 @@ export const DotMatrixWithGradientDot = Template.bind({});
 DotMatrixWithGradientDot.args = {
   showLegend: true,
   dimensions: {
-    rows: 4,
+    rows: 6,
     columns: 5
   },
   legendPosition: "right-start",
