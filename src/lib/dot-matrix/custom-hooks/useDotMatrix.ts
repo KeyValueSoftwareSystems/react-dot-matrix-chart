@@ -1,42 +1,47 @@
-import { useMemo} from "react";
-import { DataPointType } from '../types';
-import { COLOR_PALATTE, DEFAULT_COLUMNS , DEFAULT_ROWS } from '../constants';
-import { isColorPresent } from "../utils/utils";
+import { useMemo } from "react";
 
-export const useDotMatrix = (dataPoints: DataPointType[], dimensions: { rows?: number, columns?: number }): [DataPointType[], number, number[]] => {
+import { DataPointType, DimensionProp } from "../types";
+import { COLOR_PALETTE, DEFAULT_COLUMNS, DEFAULT_ROWS } from "../constants";
+import { isColorAlreadyUsed } from "../utils/utils";
 
-  const [data, total] = useMemo(() => {
-    const values: DataPointType[] = [];
-    let totalVal = 0
+export const useDotMatrix = (
+  dataPoints: DataPointType[],
+  dimensions: DimensionProp
+): [DataPointType[], number, number[]] => {
+  const [dotsToBeMapped, totalDots] = useMemo(() => {
+    const dotMatrixData: DataPointType[] = [];
+    let totalCount = 0;
     if (dataPoints) {
       let colorIndex = 0;
       dataPoints.forEach((point: DataPointType) => {
-        totalVal += point.count;
+        totalCount += point.count;
         let { color } = point;
         if (!color) {
           do {
-            color = COLOR_PALATTE[colorIndex];
+            color = COLOR_PALETTE[colorIndex];
             colorIndex++;
-          } while (isColorPresent(dataPoints, color, values))
+          } while (isColorAlreadyUsed(dataPoints, color, dotMatrixData));
         }
-        values.push({ ...point, color });
-      })
+        dotMatrixData.push({ ...point, color });
+      });
     }
-    return [values, totalVal]
+    return [dotMatrixData, totalCount]
   }, [dataPoints]);
 
-  const overlappingValues: number[] = useMemo(() => {
-    const partial: Array<number> = [];
-    if (total) {
-      data?.forEach((each: DataPointType) => {
+  // Calculates fractional part of a category based on the provided data points
+  // relative to the total number of dots and dimension
+  const fractionalDots: number[] = useMemo(() => {
+    const fractionalParts: Array<number> = [];
+    if (totalDots) {
+      dotsToBeMapped?.forEach((point: DataPointType) => {
         const { rows = DEFAULT_ROWS, columns = DEFAULT_COLUMNS } = dimensions;
-        const percentage = each.count / total;
-        const partialDots = percentage * rows * columns;
-        const value = partialDots - Math.floor(partialDots);
-        partial.push(value);
-      })
+        const pointPercentage = point.count / totalDots;
+        const dotsCount = pointPercentage * rows * columns;
+        const dotFraction = dotsCount - Math.floor(dotsCount);
+        fractionalParts?.push(dotFraction);
+      });
     }
-    return partial;
-  }, [total]);
-  return [data, total, overlappingValues];
-}
+    return fractionalParts;
+  }, [totalDots]);
+  return [dotsToBeMapped, totalDots, fractionalDots];
+};

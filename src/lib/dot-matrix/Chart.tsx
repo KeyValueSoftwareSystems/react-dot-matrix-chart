@@ -1,76 +1,77 @@
-import React, { useMemo } from 'react';
-import { v4 } from 'uuid';
-import {
-  getNumberOfDots,
-  getStyles,
-  hasOverlapping
-} from './utils/utils';
-import {
-  Elements,
-  DEFAULT_COLUMNS,
-  DEFAULT_ROWS,
-  DEFAULT_ROW_WIDTH,
-  DEFAULT_ROW_GAP
-} from './constants';
-import { ChartProps, DataPointType } from './types';
-import classes from './styles.module.scss';
+import React, { useMemo } from "react";
 
-const Chart = (props: ChartProps) : JSX.Element => {
+import { getNumberOfDots, getStyles, hasOverlapping } from "./utils/utils";
+import {
+  DEFAULT_COLUMNS,
+  DEFAULT_DOT_WIDTH,
+  DEFAULT_ROWS,
+  Elements
+} from "./constants";
+import { ChartProps, DataPointType } from "./types";
+import classes from "./styles.module.scss";
+
+const Chart = (props: ChartProps): JSX.Element => {
   const {
     dimensions = {},
     styles,
-    data,
-    overlappingValues,
+    dotsToBeMapped,
+    fractionalDots,
     total,
-    width
+    width,
+    spaceBetweenDots
   } = props;
-  const {
-    rows = DEFAULT_ROWS,
-    columns = DEFAULT_COLUMNS
-  } = dimensions;
+
+  const { rows = DEFAULT_ROWS, columns = DEFAULT_COLUMNS } = dimensions;
 
   const dotWidth = useMemo(
-    () => (width ? width / columns - DEFAULT_ROW_GAP : DEFAULT_ROW_WIDTH),
+    () => (width ? width / columns - spaceBetweenDots : DEFAULT_DOT_WIDTH),
     [width]
   );
+
   return (
     <div
       className={classes.dotsContainer}
       style={{
+        gap: `${spaceBetweenDots}px`,
         ...getStyles(Elements.DotsContainer, styles)
       }}
     >
-      {data?.map((dataItem: DataPointType, rowIndex: number) => (
-        <React.Fragment key={v4()}>
-          {dataItem && Array.apply(null, Array(getNumberOfDots(dataItem, rows, columns, total))).map((item: null, columnIndex: number) => (
-            <div id="dot-matrix-dots" key={v4()}>
-              {(hasOverlapping(overlappingValues, rowIndex, columnIndex) && (
+      {dotsToBeMapped?.map((dataItem: DataPointType, rowIndex: number) => (
+        <React.Fragment key={`${dataItem.name}-${rowIndex}`}>
+          {dataItem &&
+            [...Array(getNumberOfDots(dataItem, rows, columns, total))].map(
+              (item: null, columnIndex: number) => (
                 <div
-                  className={classes.eachDot}
-                  style={{
-                    backgroundImage: `linear-gradient(to right, ${
-                      data[rowIndex - 1].color
-                    } 20%, ${dataItem?.color} 50%)`,
-                    width: `${dotWidth}px`,
-                    height: `${dotWidth}px`,
-                    ...getStyles(Elements.Dot, styles)
-                  }}
-                />
-              )) || (
-                <div
-                  className={classes.eachDot}
-                  style={{
-                    backgroundColor: dataItem?.color,
-                    width: `${dotWidth}px`,
-                    height: `${dotWidth}px`,
-                    ...getStyles(Elements.Dot, styles)
-                  }}
-                  key={v4()}
-                  id={`each-category-${rowIndex}-${columnIndex}`}
-                />
-              )}
-            </div>
-          ))}
+                  id="dot-matrix-dots"
+                  key={`${dataItem.name}-${rowIndex}-${columnIndex}`}
+                >
+                  {hasOverlapping(fractionalDots, rowIndex, columnIndex) ? (
+                    <div
+                      className={classes.eachDot}
+                      style={{
+                        backgroundImage: `linear-gradient(to right, ${
+                          dotsToBeMapped[rowIndex - 1].color
+                        } 20%, ${dataItem?.color} 50%)`,
+                        width: `${dotWidth}px`,
+                        height: `${dotWidth}px`,
+                        ...getStyles(Elements.Dot, styles)
+                      }}
+                    />
+                  ) : (
+                    <div
+                      className={classes.eachDot}
+                      style={{
+                        backgroundColor: dataItem?.color,
+                        width: `${dotWidth}px`,
+                        height: `${dotWidth}px`,
+                        ...getStyles(Elements.Dot, styles)
+                      }}
+                      id={`each-category-${rowIndex}-${columnIndex}`}
+                    />
+                  )}
+                </div>
+              )
+            )}
         </React.Fragment>
       ))}
     </div>
