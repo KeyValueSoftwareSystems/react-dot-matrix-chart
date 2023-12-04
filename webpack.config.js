@@ -33,7 +33,9 @@ module.exports = {
     path: path.resolve(__dirname, 'build'),
     library: "DotMatrixChart",
     libraryTarget: 'umd',
-    clean: true
+    clean: true,
+    globalObject: 'this'
+
   },
   externals: {
     'react': 'react'

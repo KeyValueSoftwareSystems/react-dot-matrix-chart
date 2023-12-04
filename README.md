@@ -20,6 +20,8 @@ npm install @keyvaluesystems/react-dot-matrix-chart
 
 You’ll need to install React separately since it isn't included in the package.
 
+Note for **Next.js** users, if you are using Next.js version 13 or later, you will have to use the `use client` feature to ensure proper compatibility.
+
 ## Usage
 
 React Dot Matrix Chart can run in a very basic mode by just providing the `dataPoints` like given below:
@@ -153,9 +155,9 @@ the below code shows all the overridable styles:
 />
 ```
 
-- `Container` - overrides the dot matrix chart container style
-- `DotsContainer` - overrides the dot matrix chart dots container style
-- `Dot` - overrides the style of each dot in the chart
-- `LegendContainer` - overrides the legend (details) container style
-- `LegendName` - overrides the legend name style
-- `LegendDot` - overrides the legend dot style
+- `Container` - Overrides the dot matrix chart container style
+- `DotsContainer` - Overrides the dot matrix chart dots container style
+- `Dot` - Overrides the style of each dot in the chart
+- `LegendContainer` - Overrides the legend (details) container style
+- `LegendName` - Overrides the legend name style
+- `LegendDot` - Overrides the legend dot style
