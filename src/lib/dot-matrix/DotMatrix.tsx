@@ -30,7 +30,10 @@ const DotMatrix = (props: DotMatrixPropType): JSX.Element => {
 
   const width = useChartContainerWidth("dots-container", [
     showLegend,
-    legendPosition
+    legendPosition,
+    dimensions.rows,
+    dimensions.columns,
+    spaceBetweenDots
   ]);
 
   const [dotsToBeMapped, totalDots, fractionalDots] = useDotMatrix(

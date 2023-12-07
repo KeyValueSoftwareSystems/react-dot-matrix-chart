@@ -5,13 +5,9 @@ import { findContainerWidth } from "../utils/utils";
 
 const useChartContainerWidth = (
   id: string,
-  dependencyArray: Array<boolean | string>
+  dependencyArray: Array<boolean | string | number | undefined>
 ): number => {
   const [width, setWidth] = useState<number>(DEFAULT_DOT_CONTAINER_WIDTH);
-
-  useEffect(() => {
-    updateContainerWidth();
-  }, []);
 
   useEffect(() => {
     updateContainerWidth();

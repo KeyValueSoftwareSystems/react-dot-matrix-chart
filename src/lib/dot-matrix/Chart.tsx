@@ -25,7 +25,7 @@ const Chart = (props: ChartProps): JSX.Element => {
 
   const dotWidth = useMemo(
     () => (width ? width / columns - spaceBetweenDots : DEFAULT_DOT_WIDTH),
-    [width]
+    [width, columns, spaceBetweenDots]
   );
 
   return (
