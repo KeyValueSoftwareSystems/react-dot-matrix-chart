@@ -36,10 +36,7 @@ const DotMatrix = (props: DotMatrixPropType): JSX.Element => {
     spaceBetweenDots
   ]);
 
-  const [dotsToBeMapped, totalDots, fractionalDots] = useDotMatrix(
-    dataPoints,
-    dimensions
-  );
+  const dotsToBeMapped = useDotMatrix(dataPoints, dimensions);
 
   return (
     <div className={classes.container}>
@@ -55,13 +52,16 @@ const DotMatrix = (props: DotMatrixPropType): JSX.Element => {
             styles={styles}
             dimensions={dimensions}
             dotsToBeMapped={dotsToBeMapped}
-            total={totalDots}
             width={width}
-            fractionalDots={fractionalDots}
             spaceBetweenDots={spaceBetweenDots}
           />
         </div>
-        {showLegend && <Legend styles={styles} data={dotsToBeMapped} />}
+        {showLegend && (
+          <Legend
+            styles={styles}
+            data={dotsToBeMapped.filter((dots) => dots.color)}
+          />
+        )}
       </div>
     </div>
   );
