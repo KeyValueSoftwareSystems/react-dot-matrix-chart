@@ -2,12 +2,14 @@ import React from "react";
 import {
   render,
   queryByAttribute,
-  queryAllByAttribute
+  queryAllByAttribute,
+  renderHook
 } from "@testing-library/react";
 import "@testing-library/jest-dom";
 
 import { DotMatrixPropType } from "../dot-matrix/types";
 import { getGradient, getStyles } from "../dot-matrix/utils/utils";
+import { useDotMatrix } from "../dot-matrix/custom-hooks/useDotMatrix";
 import { Elements } from "../dot-matrix/constants";
 import DotMatrix from "../dot-matrix";
 
@@ -119,7 +121,7 @@ test("getStyles util should return the style object for a specific element if av
   expect(result).toEqual(mockStyle);
 });
 
-it('should generate a valid linear gradient string', () => {
+test('should generate a valid linear gradient string', () => {
   const colors = ['red', 'blue', 'green']; 
   const percentages = [0.25, 0.5, 0.25];
 
@@ -130,3 +132,34 @@ it('should generate a valid linear gradient string', () => {
   expect(result).toBe(expectedOutput);
 });
 
+test('returns expected output for valid input', () => {
+  const dataPoints = [
+    { name: 'Point A', count: 5, color: 'red' },
+    { name: 'Point B', count: 10, color: 'blue' },
+    { name: 'Point B', count: 5, color: 'blue' },
+  ];
+
+  const dimensions = {
+    rows: 5,
+    columns: 6,
+  };
+
+  const { result } = renderHook(() => useDotMatrix(dataPoints, dimensions));
+  expect(result.current).toHaveLength(5);
+});
+
+test('returns expected output for valid input', () => {
+  const dataPoints = [
+    { name: 'Point A', count: 10, color: 'red' },
+    { name: 'Point B', count: 1, color: 'blue' },
+    { name: 'Point B', count: 10, color: 'yellow' },
+  ];
+
+  const dimensions = {
+    rows: 1,
+    columns: 1,
+  };
+
+  const { result } = renderHook(() => useDotMatrix(dataPoints, dimensions));
+  expect(result.current).toHaveLength(1);
+});

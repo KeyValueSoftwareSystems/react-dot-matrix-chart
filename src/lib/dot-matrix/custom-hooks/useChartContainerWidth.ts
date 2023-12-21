@@ -25,8 +25,10 @@ const useChartContainerWidth = (
 
   const updateContainerWidth = (): void => {
     let widthValue;
-    if (typeof window !== undefined) widthValue = findContainerWidth(id);
-    if (widthValue) setWidth(widthValue);
+    if (typeof window !== undefined) {
+      widthValue = findContainerWidth(id);
+      setWidth(widthValue);
+    }
   };
   return width;
 };

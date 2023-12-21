@@ -52,11 +52,12 @@ export const useDotMatrix = (
     const gradientDots: DotsType[] = [];
     for (let i = 0; i < currentDots.length - 1; i++) {
       if (isDecimal(currentDots[i])) {
-        let remainingDecimal = 1 - (currentDots[i] - Math.floor(currentDots[i]));
+        let remainingDecimal =
+          1 - (currentDots[i] - Math.floor(currentDots[i]));
         const gradientColors = [dotsWithColor[i].color];
         const percentage = [currentDots[i] - Math.floor(currentDots[i])];
         let j = i + 1;
-        while (remainingDecimal !== 0) {
+        while (remainingDecimal !== 0 && j < currentDots.length) {
           if (currentDots[j] >= remainingDecimal) {
             percentage.push(remainingDecimal);
             currentDots[j] = currentDots[j] - remainingDecimal;
@@ -73,7 +74,7 @@ export const useDotMatrix = (
         gradientDots.push({
           id: i,
           count: 1,
-          gradientColors: gradientColors ? gradientColors : [],
+          gradientColors: gradientColors,
           gradientPercentage: percentage
         });
       }
@@ -92,7 +93,7 @@ export const useDotMatrix = (
     }
     //merging both arrays and sorting it with respect to id
     return mergeAndSortById(gradientDots, singleDots);
-  }, [dataPoints, dimensions.rows,dimensions.columns]);
+  }, [dataPoints, dimensions.rows, dimensions.columns]);
 
   return dotsToBeMapped;
 };
