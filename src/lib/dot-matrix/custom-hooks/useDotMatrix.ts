@@ -52,10 +52,11 @@ export const useDotMatrix = (
     const gradientDots: DotsType[] = [];
     for (let i = 0; i < currentDots.length - 1; i++) {
       if (isDecimal(currentDots[i])) {
+        const roundedCurrentDotCount = Math.floor(currentDots[i]);
         let remainingDecimal =
-          1 - (currentDots[i] - Math.floor(currentDots[i]));
+          1 - (currentDots[i] - roundedCurrentDotCount);
         const gradientColors = [dotsWithColor[i].color];
-        const percentage = [currentDots[i] - Math.floor(currentDots[i])];
+        const percentage = [currentDots[i] - roundedCurrentDotCount];
         let j = i + 1;
         while (remainingDecimal !== 0 && j < currentDots.length) {
           if (currentDots[j] >= remainingDecimal) {
@@ -67,7 +68,7 @@ export const useDotMatrix = (
             percentage.push(currentDots[j] - Math.floor(currentDots[j]));
             currentDots[j] = 0;
           }
-          currentDots[i] = Math.floor(currentDots[i]);
+          currentDots[i] = roundedCurrentDotCount;
           gradientColors.push(dotsWithColor[j].color);
           j++;
         }

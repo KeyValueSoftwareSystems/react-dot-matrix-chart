@@ -31,8 +31,8 @@ const DotMatrix = (props: DotMatrixPropType): JSX.Element => {
   const width = useChartContainerWidth("dots-container", [
     showLegend,
     legendPosition,
-    dimensions.rows,
-    dimensions.columns,
+    dimensions.rows || DEFAULT_ROWS,
+    dimensions.columns || DEFAULT_COLUMNS,
     spaceBetweenDots
   ]);
 
