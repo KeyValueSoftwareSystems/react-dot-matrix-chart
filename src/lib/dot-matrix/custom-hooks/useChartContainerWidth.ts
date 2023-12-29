@@ -14,7 +14,7 @@ const useChartContainerWidth = (
   }, [...dependencyArray]);
 
   useEffect(() => {
-    if (typeof window !== undefined) {
+    if (typeof window !== 'undefined') {
       window.addEventListener("resize", updateContainerWidth);
 
       return () => {
@@ -25,7 +25,7 @@ const useChartContainerWidth = (
 
   const updateContainerWidth = (): void => {
     let widthValue;
-    if (typeof window !== undefined) {
+    if (typeof window !== 'undefined') {
       widthValue = findContainerWidth(id);
       setWidth(widthValue);
     }
