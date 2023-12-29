@@ -8,7 +8,7 @@ import {
 import "@testing-library/jest-dom";
 
 import { DotMatrixPropType } from "../dot-matrix/types";
-import { getGradient, getStyles } from "../dot-matrix/utils/utils";
+import { getGradient, getStyles, getUniqueDots } from "../dot-matrix/utils/utils";
 import { useDotMatrix } from "../dot-matrix/custom-hooks/useDotMatrix";
 import { Elements } from "../dot-matrix/constants";
 import DotMatrix from "../dot-matrix";
@@ -152,7 +152,7 @@ test('returns expected output for valid input', () => {
   const dataPoints = [
     { name: 'Point A', count: 10, color: 'red' },
     { name: 'Point B', count: 1, color: 'blue' },
-    { name: 'Point B', count: 10, color: 'yellow' },
+    { name: 'Point C', count: 10, color: 'yellow' },
   ];
 
   const dimensions = {
@@ -161,5 +161,5 @@ test('returns expected output for valid input', () => {
   };
 
   const { result } = renderHook(() => useDotMatrix(dataPoints, dimensions));
-  expect(result.current).toHaveLength(1);
+  expect(getUniqueDots(result.current)).toHaveLength(3);
 });
