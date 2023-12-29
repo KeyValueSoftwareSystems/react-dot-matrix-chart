@@ -80,3 +80,15 @@ export const getGradient = (
   }
   return str;
 };
+
+export const getUniqueDots = (dotsToBeMapped: DotsType[]): DotsType[] => {
+  const uniqueIds = new Set();
+
+  return dotsToBeMapped.filter((dot) => {
+    if (!uniqueIds.has(dot.id)) {
+      uniqueIds.add(dot.id);
+      return true;
+    }
+    return false;
+  });
+};

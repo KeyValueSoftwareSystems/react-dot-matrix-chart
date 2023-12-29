@@ -19,7 +19,7 @@ const Legend = (props: LegendProps): JSX.Element => {
           <div
             className={classes.legendDot}
             style={{
-              backgroundColor: point.color,
+              backgroundColor: point.color || (point.gradientColors && point.gradientColors[0]),
               ...getStyles(Elements.LegendDot, styles)
             }}
           />

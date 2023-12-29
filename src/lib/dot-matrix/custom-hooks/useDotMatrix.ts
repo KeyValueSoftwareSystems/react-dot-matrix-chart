@@ -74,6 +74,7 @@ export const useDotMatrix = (
         gradientDots.push({
           id: i,
           count: 1,
+          name: dotsWithColor[i].name,
           gradientColors: gradientColors,
           gradientPercentage: percentage
         });
@@ -82,14 +83,12 @@ export const useDotMatrix = (
     //Calculating the remaining dots with single color
     const singleDots: DotsType[] = [];
     for (let i = 0; i < currentDots.length; i++) {
-      if (currentDots[i] !== 0) {
-        singleDots.push({
-          id: i,
-          name: dotsWithColor[i].name,
-          count: Math.round(currentDots[i]),
-          color: dotsWithColor[i].color
-        });
-      }
+      singleDots.push({
+        id: i,
+        name: dotsWithColor[i].name,
+        count: Math.round(currentDots[i]),
+        color: dotsWithColor[i].color
+      });
     }
     //merging both arrays and sorting it with respect to id
     return mergeAndSortById(gradientDots, singleDots);

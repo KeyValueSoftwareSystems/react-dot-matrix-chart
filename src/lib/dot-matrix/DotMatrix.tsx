@@ -1,7 +1,7 @@
 import React from "react";
 
 import { useDotMatrix } from "./custom-hooks/useDotMatrix";
-import { getLegendPosition, getStyles } from "./utils/utils";
+import { getLegendPosition, getStyles, getUniqueDots } from "./utils/utils";
 import {
   DEFAULT_COLUMNS,
   DEFAULT_GAP,
@@ -59,7 +59,11 @@ const DotMatrix = (props: DotMatrixPropType): JSX.Element => {
         {showLegend && (
           <Legend
             styles={styles}
-            data={dotsToBeMapped.filter((dots) => dots.color)}
+            data={getUniqueDots(dotsToBeMapped).filter(
+              (dots) =>
+                dots.color ||
+                (dots?.gradientColors && dots.gradientColors.length > 0)
+            )}
           />
         )}
       </div>
