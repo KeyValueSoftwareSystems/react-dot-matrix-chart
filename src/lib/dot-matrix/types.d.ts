@@ -6,9 +6,7 @@ export interface DataPointType {
 export interface ChartProps {
   dimensions?: DimensionProp;
   styles: StyleProp;
-  dotsToBeMapped: DataPointType[];
-  fractionalDots: number[];
-  total: number;
+  dotsToBeMapped: DotsType[];
   width: number;
   spaceBetweenDots: number;
 }
@@ -29,7 +27,7 @@ export type StyleProp = {
 
 export interface LegendProps {
   styles: StyleProp;
-  data: DataPointType[];
+  data: DotsType[];
 }
 
 export interface DotMatrixPropType {
@@ -51,4 +49,13 @@ export interface DotMatrixPropType {
     | "bottom-start"
     | "bottom-end";
   styles?: StyleProp;
+}
+
+export interface DotsType {
+  id: number;
+  name?: string;
+  count?: number;
+  color?: string;
+  gradientColors?: (string | undefined)[];
+  gradientPercentage?: number[];
 }

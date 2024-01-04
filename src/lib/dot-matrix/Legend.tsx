@@ -1,7 +1,7 @@
 import React from "react";
 
 import { getStyles } from "./utils/utils";
-import { DataPointType, LegendProps } from "./types";
+import { DotsType, LegendProps } from "./types";
 import { Elements } from "./constants";
 import classes from "./styles.module.scss";
 
@@ -14,12 +14,12 @@ const Legend = (props: LegendProps): JSX.Element => {
       className={classes.legends}
       style={{ ...getStyles(Elements.LegendContainer, styles) }}
     >
-      {data?.map((point: DataPointType, index) => (
+      {data?.map((point: DotsType, index) => (
         <div className={classes.legend} key={`${point.name}-${index}`}>
           <div
             className={classes.legendDot}
             style={{
-              backgroundColor: point.color,
+              backgroundColor: point.color || (point.gradientColors && point.gradientColors[0]),
               ...getStyles(Elements.LegendDot, styles)
             }}
           />

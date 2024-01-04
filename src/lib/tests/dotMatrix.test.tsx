@@ -2,12 +2,14 @@ import React from "react";
 import {
   render,
   queryByAttribute,
-  queryAllByAttribute
+  queryAllByAttribute,
+  renderHook
 } from "@testing-library/react";
 import "@testing-library/jest-dom";
 
 import { DotMatrixPropType } from "../dot-matrix/types";
-import { getStyles, hasOverlapping } from "../dot-matrix/utils/utils";
+import { getGradient, getStyles, getUniqueDots } from "../dot-matrix/utils/utils";
+import { useDotMatrix } from "../dot-matrix/custom-hooks/useDotMatrix";
 import { Elements } from "../dot-matrix/constants";
 import DotMatrix from "../dot-matrix";
 
@@ -119,10 +121,45 @@ test("getStyles util should return the style object for a specific element if av
   expect(result).toEqual(mockStyle);
 });
 
-test("should return true when [indexRow - 1] is not equal to 0 and less than 1", () => {
-  const values = [2, 0.5, 1];
-  const indexRow = 2;
-  const indexColumn = 0;
-  const result = hasOverlapping(values, indexRow, indexColumn);
-  expect(result).toBe(true);
+test('should generate a valid linear gradient string', () => {
+  const colors = ['red', 'blue', 'green']; 
+  const percentages = [0.25, 0.5, 0.25];
+
+  const result = getGradient(colors, percentages);
+
+  const expectedOutput = 'linear-gradient(to right, red 10%, blue 40%, green 115%)';
+  
+  expect(result).toBe(expectedOutput);
+});
+
+test('returns expected output for valid input', () => {
+  const dataPoints = [
+    { name: 'Point A', count: 5, color: 'red' },
+    { name: 'Point B', count: 10, color: 'blue' },
+    { name: 'Point B', count: 5, color: 'blue' },
+  ];
+
+  const dimensions = {
+    rows: 5,
+    columns: 6,
+  };
+
+  const { result } = renderHook(() => useDotMatrix(dataPoints, dimensions));
+  expect(result.current).toHaveLength(5);
+});
+
+test('returns expected output for valid input', () => {
+  const dataPoints = [
+    { name: 'Point A', count: 10, color: 'red' },
+    { name: 'Point B', count: 1, color: 'blue' },
+    { name: 'Point C', count: 10, color: 'yellow' },
+  ];
+
+  const dimensions = {
+    rows: 1,
+    columns: 1,
+  };
+
+  const { result } = renderHook(() => useDotMatrix(dataPoints, dimensions));
+  expect(getUniqueDots(result.current)).toHaveLength(3);
 });

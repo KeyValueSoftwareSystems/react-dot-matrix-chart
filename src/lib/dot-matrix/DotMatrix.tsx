@@ -1,7 +1,7 @@
 import React from "react";
 
 import { useDotMatrix } from "./custom-hooks/useDotMatrix";
-import { getLegendPosition, getStyles } from "./utils/utils";
+import { getLegendPosition, getStyles, getUniqueDots } from "./utils/utils";
 import {
   DEFAULT_COLUMNS,
   DEFAULT_GAP,
@@ -30,13 +30,13 @@ const DotMatrix = (props: DotMatrixPropType): JSX.Element => {
 
   const width = useChartContainerWidth("dots-container", [
     showLegend,
-    legendPosition
+    legendPosition,
+    dimensions.rows || DEFAULT_ROWS,
+    dimensions.columns || DEFAULT_COLUMNS,
+    spaceBetweenDots
   ]);
 
-  const [dotsToBeMapped, totalDots, fractionalDots] = useDotMatrix(
-    dataPoints,
-    dimensions
-  );
+  const dotsToBeMapped = useDotMatrix(dataPoints, dimensions);
 
   return (
     <div className={classes.container}>
@@ -52,13 +52,20 @@ const DotMatrix = (props: DotMatrixPropType): JSX.Element => {
             styles={styles}
             dimensions={dimensions}
             dotsToBeMapped={dotsToBeMapped}
-            total={totalDots}
             width={width}
-            fractionalDots={fractionalDots}
             spaceBetweenDots={spaceBetweenDots}
           />
         </div>
-        {showLegend && <Legend styles={styles} data={dotsToBeMapped} />}
+        {showLegend && (
+          <Legend
+            styles={styles}
+            data={getUniqueDots(dotsToBeMapped).filter(
+              (dots) =>
+                dots.color ||
+                (dots?.gradientColors && dots.gradientColors.length > 0)
+            )}
+          />
+        )}
       </div>
     </div>
   );
